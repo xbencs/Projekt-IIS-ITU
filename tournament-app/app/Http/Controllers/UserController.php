@@ -77,7 +77,7 @@ class UserController extends Controller
         return view('users.edit', ['users' => $user]);
     }
 
-    // function for storing
+    // function for user update
     public function update(Request $request, User $user){
         $formFields = $request->validate([
             'name' => ['required', 'min:3'],
@@ -90,6 +90,28 @@ class UserController extends Controller
         return back()->with('message', 'User edited.');
         
     }
+
+    // function for showing all players
+    /*public function show(Request $request, User $user){
+        return view('users.registered_users', ['users' => $user]);
+        
+    }*/
+
+    // show all listings
+    public function show(){
+        return view('users.registered_users', [
+            'users' => User::all()
+        ]);
+
+    }
+
+    /* show single user
+     public function show(User $user){
+        return view('users.show', [
+            'users' => $user
+        ]);
+
+    }*/
 
 
 }

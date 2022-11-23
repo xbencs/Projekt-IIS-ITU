@@ -67,15 +67,21 @@ Route::get('/login', [UserController::class, 'login'])->name('login')->middlewar
 Route::post('/users/authenticate', [UserController::class, 'authenticate']);
 
 //show user-edit form
-Route::get('/users/{user}/edit', [UserController::class, 'edit']);
+Route::get('/users/{user}/edit', [UserController::class, 'edit'])->middleware('auth');
 
 //update submit new edited user data
-Route::put('/users/{user}', [UserController::class, 'update']);
+Route::put('/users/{user}', [UserController::class, 'update'])->middleware('auth');
 
 // show players-registered user
 Route::get('/registered_users', [UserController::class, 'index']);
 
 // show single players-registered users
 Route::get('/users/{user}', [UserController::class, 'show']);
+
+//delete listing
+Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('auth');
+
+//edite someone
+Route::post('/users/edit_someone', [UserController::class, 'edit_someone']);
 
 

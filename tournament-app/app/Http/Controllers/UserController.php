@@ -79,6 +79,10 @@ class UserController extends Controller
 
     // function for user update
     public function update(Request $request, User $user){
+        if($user->id != auth()->id() && auth()->user()->is_admin == false){
+            abort(403, 'Unathorized Action');
+        }
+
         $formFields = $request->validate([
             'name' => ['required', 'min:3'],
             'email' => ['required', 'email'],
@@ -108,6 +112,25 @@ class UserController extends Controller
     // show single user --------> cesta je ='/users/{user}'
     public function show(User $user){
         return view('users.user_profile', [
+            'user' => $user
+        ]);
+
+    }
+
+    //delete user
+    public function destroy(User $user){
+        //make sure logged in user is owner or admin!
+        if($user->id != auth()->id() && auth()->user()->is_admin == false){
+            abort(403, 'Unathorized Action');
+        }
+
+        $user->delete();
+        return redirect('/')->with('message', 'User deleted successfully');
+    }
+
+    //edit user
+    public function edit_someone(User $user){
+        return view('users.edit_someone', [
             'user' => $user
         ]);
 

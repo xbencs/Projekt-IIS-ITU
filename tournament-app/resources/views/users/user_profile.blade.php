@@ -29,33 +29,30 @@ hellou user profile todo:
                         href="mailto:{{$user->email}}"
                         class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80"
                         ><i class="fa-solid fa-envelope"></i>
-                        Contact Player</a
-                    >
+                        Contact Player
+                    </a>
 
-                    <a
-                    {{--TODO: href="{{$user->website}}"T--}}
-                    target="_blank"
-                    class="block bg-black text-white py-2 rounded-xl hover:opacity-80"
-                    ><i class="fas fa-pen"></i>
-                    Edit Player</a
-                >
+                    
+                    <a 
+                        href="/users/{{$user->id}}/edit"
+                        class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80">
+                        <i class="fa-solid fa-globe"></i> 
+                        Edit Profile
+                    </a>
 
                 </div>
             </div>
         </div>
     </x-card>
         
-    {{-- <x-card class="mt-4 p-2 flex space-x-6">
-        <a href="/listings/{{$listing->id}}/edit">
-            <i class="fa-solid fa-pencil"></i> Edit
-        </a>--}}
+    <x-card class="mt-4 p-2 flex space-x-6">
     
-    {{--<form method="POST" action="/listings/{{$listing->id}}">
+    <form method="POST" action="/users/{{$user->id}}">
         @csrf
         @method('DELETE')
         <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
     </x-card>
-    </div>--}}
+    </div>
     
     </x-layout>
         

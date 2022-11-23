@@ -73,9 +73,9 @@ Route::get('/users/{user}/edit', [UserController::class, 'edit']);
 Route::put('/users/{user}', [UserController::class, 'update']);
 
 // show players-registered user
-Route::get('/registered_users', [UserController::class, 'show']);
+Route::get('/registered_users', [UserController::class, 'index']);
 
-// show players-registered users
-//Route::get('/users/{user}', [UserController::class, 'show']);
+// show single players-registered users
+Route::get('/users/{user}', [UserController::class, 'show']);
 
 

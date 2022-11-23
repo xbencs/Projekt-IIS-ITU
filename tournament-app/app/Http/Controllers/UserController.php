@@ -98,20 +98,20 @@ class UserController extends Controller
     }*/
 
     // show all listings
-    public function show(){
+    public function index(){
         return view('users.registered_users', [
             'users' => User::all()
         ]);
 
     }
 
-    /* show single user
-     public function show(User $user){
-        return view('users.show', [
-            'users' => $user
+    // show single user --------> cesta je ='/users/{user}'
+    public function show(User $user){
+        return view('users.user_profile', [
+            'user' => $user
         ]);
 
-    }*/
+    }
 
 
 }

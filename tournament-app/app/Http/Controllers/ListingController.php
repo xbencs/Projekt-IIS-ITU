@@ -33,16 +33,27 @@ class ListingController extends Controller
     }
 
     //store listing data
-    public function store(Request $request){
+    public function store(Request $request){ //title = nazov, company=
         $formFields = $request->validate([
             'title' => 'required',
-            'company' => ['required', Rule::unique('listings', 'company')],
+            'date' => '',
             'location' => 'required',
-            'website' => 'required',
             'email' => ['required', 'email'],
-            'tags' => 'required',
-            'descriptions' => 'required'
+            'sport' => '',
+            'conditions' => 'required',
+            'max_players' => 'required',
+            'descriptions' => 'required',
+            'prize' => '',
+            'winner' => '',
+            'website' => 'required',
+            //'approved' => '',
         ]);
+
+        /*if($request['approved'] === 'yes'){
+            $formFields['approved'] = true;
+        }else{
+            $formFields['approved'] = false;
+        }*/
 
         if($request->hasFile('logo')){
             $formFields['logo'] = $request->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
@@ -73,13 +84,24 @@ class ListingController extends Controller
 
         $formFields = $request->validate([
             'title' => 'required',
-            'company' => 'required',
+            'date' => '',
             'location' => 'required',
-            'website' => 'required',
             'email' => ['required', 'email'],
-            'tags' => 'required',
-            'descriptions' => 'required'
+            'sport' => '',
+            'conditions' => 'required',
+            'max_players' => 'required',
+            'descriptions' => 'required',
+            'prize' => '',
+            'winner' => '',
+            'website' => 'required',
+            //'approved' => '',
         ]);
+
+        /*if($request['approved'] === 'yes'){
+            $formFields['approved'] = true;
+        }else{
+            $formFields['approved'] = false;
+        }*/
 
         if($request->hasFile('logo')){
             $formFields['logo'] = $request->file('logo')->store('logos', 'public'); 

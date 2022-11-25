@@ -1,6 +1,3 @@
-hellou user profile todo:
-
-
 <x-layout>
     @include('partials._search')
         
@@ -23,7 +20,6 @@ hellou user profile todo:
                     Player Description
                 </h3>
                 <div class="text-lg space-y-6">
-                   {{--{{$listing->descriptions}}--}}
     
                     <a
                         href="mailto:{{$user->email}}"

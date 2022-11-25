@@ -19,13 +19,17 @@
                     <i class="fa-solid fa-location-dot"></i> {{$listing->location}}
                 </div>
             </x-listing-tags>
+            
+            
             <div class="mb-10">
-                 Approved by admin
-                {{--@if($listing->approved === 1)
+                 
+                @if($listing->approved === 1)
+                Approved by admin
                     <span>&#10003;</span>  
                 @else
+                Not-approved by admin
                     <i class="fa fa-close"></i>
-                @endif--}}
+                @endif
             </div>
         </div>
     </div>

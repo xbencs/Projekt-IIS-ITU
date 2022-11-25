@@ -47,14 +47,14 @@
                     Website</a
                 >
 
-                {{--<div class="mb-10">
-                    Approved by admin
+                <div class="mb-10">
+                    Approval:
                    @if($listing->approved === 1)
                        <span>&#10003;</span>  
                    @else
                        <i class="fa fa-close"></i>
                    @endif
-               </div>--}}
+               </div>
 
                <a 
                     href="/listings/{{$listing->id}}/edit"

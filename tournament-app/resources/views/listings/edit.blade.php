@@ -87,11 +87,12 @@
                 >
                     *Tournament Descriptions
                 </label>
-                <textarea
+                <input
+                    type="text"
                     class="border border-gray-200 rounded p-2 w-full"
                     name="descriptions"
                     value="{{$listing->descriptions}}"
-                ></textarea>
+                ></input>
                 @error('descriptions')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
@@ -104,11 +105,11 @@
                 >
                     *Tournament Conditions
                 </label>
-                <textarea
+                <input
                     class="border border-gray-200 rounded p-2 w-full"
                     name="conditions"
                     value="{{$listing->conditions}}"
-                ></textarea>
+                ></input>
                 @error('conditions')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
@@ -183,7 +184,30 @@
                     value="{{$listing->prize}}"
                 ></input>
             </div>
+
+
+
+            <div class="mb-6">
+
+                @if (auth()->user()->is_admin == 1)
+                    <label for="approved"></label>
+                    *Approvement:
+        
+                    <select name="approved">
+                        @if ($listing->approved == 1) 
+                            <option value="true">yes</option>
+                            <option value="false">no</option>
+                        @else 
+                            <option value="false">no</option>
+                            <option value="true">yes</option>
+                        @endif
+                    </select>
+                @endif
     
+            </div>
+    
+
+
             <div class="mb-6">
                 <button
                     class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"

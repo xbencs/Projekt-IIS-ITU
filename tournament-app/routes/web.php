@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListingController;
+use App\Http\Controllers\TeamController;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +78,10 @@ Route::get('/registered_users', [UserController::class, 'index']);
 
 // show single players-registered users
 Route::get('/users/{user}', [UserController::class, 'show']);
+
+Route::get('/registered_teams', [TeamController::class, 'index']);
+
+Route::get('/teams/{team}', [TeamController::class, 'show']);
 
 //delete listing
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('auth');

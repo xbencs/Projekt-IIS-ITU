@@ -6,6 +6,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use App\Models\User;
 use App\Models\Listing;
+use App\Models\Team;
 use Illuminate\Database\Seeder;
 
 
@@ -24,6 +25,8 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]);
+
+        Team::factory(2)->create();
 
         $user = User::factory()->create([
             'name' => 'John Doe', 

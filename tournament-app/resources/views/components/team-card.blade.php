@@ -1,5 +1,5 @@
 
-@props(['user'])
+@props(['team'])
 
 <!-- Item 1 --> <!--new component-->
 <x-card>
@@ -8,12 +8,12 @@
         <div>
             <h3 class="text-2xl">
                 {{--<div class="text-xl font-bold mb-4">{{$user->name}}</div>--}}
-                <a href="/users/{{$user->id}}''">{{$user->name}}</a>
+                <a href="./teams/{{$team->id}}''">{{$team->name}}</a>
+                
             </h3>
 
-            <div class="text-lg mt-4"> <i class="fa fa-envelope"></i> {{$user->email}}</div>
+            <div class="text-lg mt-4"> <i class="fa fa-envelope"></i> {{$team->description}}</div>
             
-        
         </div>
     </div>
 </x-card>

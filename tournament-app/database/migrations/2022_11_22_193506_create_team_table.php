@@ -30,7 +30,7 @@ return new class extends Migration
         Schema::create('teams', function(Blueprint $table) {
             $table->id();
             $table->integer('owner_id')->unsigned();
-            $table->integer('players_count')->unsigned();
+            $table->integer('players_count')->unsigned()->default('1');
             $table->string('name');
             // $table->string('slug')->unique();
             $table->string('description');

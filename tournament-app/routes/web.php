@@ -79,8 +79,13 @@ Route::get('/registered_users', [UserController::class, 'index']);
 // show single players-registered users
 Route::get('/users/{user}', [UserController::class, 'show']);
 
+// create form - team
+Route::get('/teams/create', [TeamController::class, 'create'])->middleware('auth');
+//create a new team - storing him
+Route::post('/teams', [TeamController::class, 'store'])->middleware('auth');
+// show all teams
 Route::get('/registered_teams', [TeamController::class, 'index']);
-
+// show single team
 Route::get('/teams/{team}', [TeamController::class, 'show']);
 
 //delete listing

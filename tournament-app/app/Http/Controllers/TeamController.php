@@ -29,25 +29,27 @@ class TeamController extends Controller
     } 
 
     public function create(){
-        return view('team.create');
+        return view('teams.register');
 
     }
 
     public function store(Request $request){
         $formFields = $request->validate([
             'name' => 'required',
-            'players' => 'required'
+            'description' => 'required'
         ]);
 
-        if($request->hasFile('logo')){
+        /* if($request->hasFile('logo')){
             $formFields['logo'] = $request->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
                                                                                     // after new tournament with logo is created run: php artisan storage:link
 
-        }
+        } */
 
-        $formFields['user_id'] = auth()->id();
+        $formFields['owner_id'] = auth()->id();
 
-        Listing::create($formFields);
+        $team = Team::create($formFields);
+        
+        auth()->user()->update(['current_team_id'=> $team->id]);
 
         //Session::flash('message', 'Listing Create'); instead of this look at redirect and its flash message
 
@@ -67,7 +69,7 @@ class TeamController extends Controller
 
         $formFields = $request->validate([
             'name' => 'required',
-            'players' => 'required'
+            'description' => 'required'
         ]);
 
         if($request->hasFile('logo')){

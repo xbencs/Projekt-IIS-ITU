@@ -12,7 +12,7 @@
                 
             </h3>
 
-            <div class="text-lg mt-4"> <i class="fa fa-envelope"></i> {{$team->description}}</div>
+            <div class="text-lg mt-4"> <i class="fa-solid fa-quote-right"></i> {{$team->description}}</div>
             
         </div>
     </div>

@@ -26,6 +26,41 @@
                 },
             };
         </script>
+        <style>
+            
+            
+            .dropdown {
+              position: relative;
+              display: inline-block;
+            }
+            
+            .dropdown-content {
+              display: none;
+              position: absolute;
+              right: 0;
+              background-color: #f9f9f9;
+              min-width: 160px;
+              box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+              z-index: 1;
+            }
+            
+            .dropdown-content a {
+              color: black;
+              padding: 12px 16px;
+              text-decoration: none;
+              display: block;
+            }
+            
+            .dropdown-content a:hover {background-color: #f1f1f1;}
+            
+            .dropdown:hover .dropdown-content {
+              display: block;
+            }
+            
+            .dropdown:hover .dropbtn {
+              color: #ef3b2d;
+            }
+            </style>
         <title>Sport | Find Tournaments & Join</title>
     </head>
     <body class="mb-48">
@@ -41,13 +76,24 @@
                         Players</a
                     >
                 </li>
-                <li>
+                {{-- <li>
                     <a href="/registered_teams" class="hover:text-laravel"
                         ><i class="fa-solid fas fa-users"></i>
                         Teams</a
                     >
-                </li>
+                </li> --}}
                 
+                <div class="dropdown" class="hover:text-laravel" style="float:right;">
+                    <button class="dropbtn" class="hover:text-laravel"><a class="hover:text-laravel"
+                        ><i class="fa-solid fas fa-users"></i>
+                        Teams</a></button>
+                    <div class="dropdown-content">
+                    <a href="/registered_teams" class="hover:text-laravel">Browse</a>
+                    @auth
+                    <a href="/teams/{{auth()->user()->current_team_id}}" class="hover:text-laravel">My team</a>
+                    @endauth
+                    </div>
+                  </div>
                 @auth
                 <li>
                     <span class="font-bold uppercase">Welcome {{auth()->user()->name}}</span>

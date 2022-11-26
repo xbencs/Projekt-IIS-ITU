@@ -85,6 +85,17 @@ Route::get('/teams/create', [TeamController::class, 'create'])->middleware('auth
 Route::post('/teams', [TeamController::class, 'store'])->middleware('auth');
 // show all teams
 Route::get('/registered_teams', [TeamController::class, 'index']);
+
+Route::put('/teams/{team}', [TeamController::class, 'update'])->middleware('auth');
+
+Route::get('/teams/{team}/edit', [TeamController::class, 'edit'])->middleware('auth');
+
+Route::get('/teams/{team}/manage', [TeamController::class, 'manage'])->middleware('auth');
+
+Route::put('/teams/{team}/add', [TeamController::class, 'add'])->middleware('auth');
+
+Route::delete('/teams/{team}/{user}', [TeamController::class, 'kick'])->middleware('auth');
+
 // show single team
 Route::get('/teams/{team}', [TeamController::class, 'show']);
 

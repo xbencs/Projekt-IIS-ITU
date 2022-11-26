@@ -57,13 +57,13 @@ class TeamController extends Controller
     }
 
     //show edit form
-    public function edit(Listing $listing){
-        return view('listings.edit', ['listing' => $listing]);
+    public function edit(Team $team){
+        return view('teams.edit', ['team' => $team]);
     }
 
     public function update(Request $request, Team $team){
         //make sure logged in user is owner!
-        if($team->user_id != auth()->id()){
+        if($team->owner_id != auth()->id()){
             abort(403, 'Unathorized Action');
         }
 
@@ -76,15 +76,48 @@ class TeamController extends Controller
             $formFields['logo'] = $request->file('logo')->store('logos', 'public'); 
         }
 
-        $listing->update($formFields);
+        $team->update($formFields);
 
         //Session::flash('message', 'Listing Create'); instead of this look at redirect and its flash message
 
-        return back()->with('message', 'Listing updated successfully!');
+        return back()->with('message', 'Team updated successfully!');
     }
 
-    public function manage(){
-        $teams = ['User 1','User 2','User 3'];
-        return view('team.manage', ['team' => $teams]);
+    public function kick(Team $team,User $user){
+        //make sure logged in user is owner or admin!
+
+        if($team->owner_id != auth()->id() && auth()->user()->is_admin == false){
+            abort(403, 'Unathorized Action');
+        } 
+
+        $user->update(['current_team_id'=> NULL]);
+        return redirect('/teams/'.$team->id.'/manage')->with('message', 'Member removed successfully');
+        
+    }
+
+    public function add(Request $request,Team $team){
+        //make sure logged in user is owner or admin!
+        if($team->owner_id != auth()->id() && auth()->user()->is_admin == false){
+            abort(403, 'Unathorized Action');
+        } 
+        $formFields = $request->validate([
+            'name' => 'required',
+        ]);
+        $user = User::where('name','=',$formFields['name'])->first();
+        if($user->current_team_id != NULL)
+        {
+            return redirect('/teams/'.$team->id.'/manage')->with('message', 'Member is already in team');
+        }else {
+            $user->update(['current_team_id'=> $team->id]);
+            return redirect('/teams/'.$team->id.'/manage')->with('message', 'Member added successfully');
+            
+        }
+    }
+
+    public function manage(Team $team){
+        return view('teams.manage', [
+            'team' => $team,
+            'users' => User::where('current_team_id','=',$team->id)->get()
+        ]);
     }
 }

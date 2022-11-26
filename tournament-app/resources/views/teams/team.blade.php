@@ -1,7 +1,7 @@
 <x-layout>
     
-    @include('partials._search')
-    @include('partials._hero')
+    {{-- @include('partials._search')
+    @include('partials._hero') --}}
     
     <div style="padding-bottom: 1%" class="mx-4">
     <x-card class="p-10">
@@ -21,8 +21,23 @@
                     Created by:
                     <a href="/users/{{$owner->id}}''">{{$owner->name}}</a>
     
-
                 </div>
+
+                @if($team->owner_id == auth()->user()->id)
+                <a 
+                        href="/teams/{{$team->id}}/manage"
+                        class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80">
+                        <i class="fa-solid fa-globe"></i> 
+                        Manage Team
+                </a>
+
+                <a 
+                        href="/teams/{{$team->id}}/edit"
+                        class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80">
+                        <i class="fa-solid fa-globe"></i> 
+                        Edit Team Profile
+                </a>
+                @endif
             </div>
         </div>
     </x-card>

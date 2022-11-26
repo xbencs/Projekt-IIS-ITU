@@ -52,9 +52,11 @@
                             @csrf
                             @method('PUT')   
                             <td class="px-4 py-8 border-t border-b border-gray-300 trxt-lg">
-                                <div style="overflow: hidden; padding-right: .5em;">
-                                <input type="text" class="border border-gray-200 rounded p-2 w-full" name="name" placeholder="Username" style="width: 100%;" />
-                                </div>                        
+                                <div class="relative z-0">
+                                    <input name="name" type="text" id="floating_standard" class="block py-2.5 px-0 w-full text-sm text-black-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-black dark:border-gray-600 dark:focus:border-red-500 focus:outline-none focus:ring-0 focus:border-red-600 peer" placeholder=" " />
+                                    <label for="floating_standard" class="absolute text-sm text-black-500 dark:text-black-400 duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-red-600 peer-focus:dark:text-red-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Username</label>
+                                </div>
+                                                      
                                 
                             </td>
                             <td class="px-4 py-8 border-t border-b border-gray-300 trxt-lg">

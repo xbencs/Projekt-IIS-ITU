@@ -75,7 +75,13 @@
     @method('DELETE')
     <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
 </x-card>
+<x-card  class="mt-4 p-2 flex space-x-6">
+    {{-- <span id="matchCallback"></span> --}}
+    <div  id="matches">
+      <div class="demo">
+      </div>
+    </div>
+</x-card>
 </div>
-
 </x-layout>
     

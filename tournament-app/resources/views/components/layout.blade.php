@@ -13,6 +13,14 @@
             crossorigin="anonymous"
             referrerpolicy="no-referrer"
         />
+        {{-- Bracket --}}
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-bracket/0.11.1/jquery.bracket.min.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/cupertino/jquery-ui.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/cupertino/theme.min.css" />
+        {{-- ------ --}}
         <script src="//unpkg.com/alpinejs" defer></script>
         <script src="https://cdn.tailwindcss.com"></script>
         <script>
@@ -25,6 +33,72 @@
                     },
                 },
             };
+        </script>
+        <script>
+            var autoCompleteData = {
+                teams : [
+                ["fi:Team 1", "Team 2"],
+                ["Team 3", "Team 4"],
+                ["Team 5", "Team 6"],
+                ["Team 7", "Team 8"],
+                ["Team 9", "Team 10"],
+                ["Team 11", "Team 12"],
+                ["Team 13", "Team 14"],
+                ["Team 15", "Team 16"]
+                ],
+                results : []
+            }
+            
+            var acData = ["kr:MC", "ca:HuK", "se:Naniwa", "pe:Fenix",
+                "us:IdrA", "tw:Sen", "fi:Naama"]
+            /* function onclick(data) {
+                $('#matchCallback').text("onclick(data: '" + data + "')")
+            }
+            
+            function onhover(data, hover) {
+                $('#matchCallback').text("onhover(data: '" + data + "', hover: " + hover + ")")
+            } */
+            function acEditFn(container, data, doneCb) {
+                var input = $('<input type="text">')
+                input.val(data)
+                input.autocomplete({ source: acData })
+                input.blur(function() { doneCb(input.val()) })
+                input.keyup(function(e) { if ((e.keyCode||e.which)===13) input.blur() })
+                container.html(input)
+                input.focus()
+            }
+            
+            function acRenderFn(container, data, score, state) {
+                switch(state) {
+                    case 'empty-bye':
+                    container.append('BYE')
+                    return;
+                    case 'empty-tbd':
+                    container.append('TBD')
+                    return;
+                
+                    case 'entry-no-score':
+                    case 'entry-default-win':
+                    case 'entry-complete':
+                    var fields = data.split(':')
+                    // if (fields.length <= 2)
+                    //     container.append('<i>INVALID</i>')
+                    // else
+                    container.append(''+fields[0]).append(fields[1])
+                    return;
+                }
+            }
+            
+            $(function() {
+                $('#matches .demo').bracket({
+                    init: autoCompleteData,
+                    save: function(){}, /* without save() labels are disabled */
+                    decorator: {edit: acEditFn,
+                                render: acRenderFn}})
+            })
+            
+            
+            
         </script>
         <style>
             
@@ -156,7 +230,7 @@
 
         {{$slot}}
         </main>
-        <footer
+        <footer style="z-index: 2"
             class="fixed bottom-0 left-0 w-full flex items-center justify-start font-bold bg-laravel text-white h-24 mt-24 opacity-90 md:justify-center"
         >
             <p class="ml-2">Copyright &copy; 2022, All Rights reserved</p>

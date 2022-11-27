@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Game;
 use App\Models\Listing;
+use App\Models\Team;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
@@ -19,8 +22,26 @@ class ListingController extends Controller
 
     // show single listing
     public function show(Listing $listing){
+        // $games = Game::where('listing_id','=',$listing->id)->get();
+        $teams = DB::select('
+        select f.name as first , s.name as second 
+        from games g
+        INNER JOIN teams f on g.first_team_id = f.id 
+        INNER JOIN teams s on g.second_team_id = s.id 
+        where g.listing_id = ? ;', [$listing->id]);
+        
+        $results = DB::select('select first_score, second_score from games where listing_id = ?', [$listing->id]);
+        // $i =0;
+        // foreach($games as $game){
+        //     $teams[$i][0] = $game[3];
+        //     $teams[$i][1] = $game[4];
+        //     $i +=1;
+        // }
+        // echo json_encode($teams);
         return view('listings.show', [
-            'listing' => $listing
+            'listing' => $listing,
+            'teams' => $teams,
+            'results' => $results
         ]);
 
     }

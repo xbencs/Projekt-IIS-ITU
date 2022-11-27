@@ -19,14 +19,14 @@ class Team extends Model
     // A team can have many members.
 	public function members()
 	{
-        return $this->belongsToMany('App\Models\User', 'team_user')
+        return $this->belongsToMany(User::class, 'team_user')
             ->withPivot(['is_admin']);
 	}
 
 	// A team can be signed-up for many tournaments.
 	public function tournaments()
 	{
-		return $this->belongsToMany('App\Models\Tournament', 'team_tournament')
+		return $this->belongsToMany(Listing::class, 'team_tournament')
             ->withPivot(['checked_in', 'disqualified']);
 	} 
     

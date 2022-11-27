@@ -26,7 +26,7 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
 
-        Team::factory(2)->create();
+        Team::factory(12)->create();
 
         $user = User::factory()->create([
             'name' => 'John Doe', 

@@ -35,22 +35,21 @@
             };
         </script>
         <script>
+            
             var autoCompleteData = {
                 teams : [
-                ["fi:Team 1", "Team 2"],
-                ["Team 3", "Team 4"],
-                ["Team 5", "Team 6"],
-                ["Team 7", "Team 8"],
-                ["Team 9", "Team 10"],
-                ["Team 11", "Team 12"],
-                ["Team 13", "Team 14"],
-                ["Team 15", "Team 16"]
+                // ["fi:Team 1", "Team 2"],
+                // ["Team 3", "Team 4"],
+                // ["Team 5", "Team 6"],
+                // ["Team 7", "Team 8"],
+                // ["Team 9", "Team 10"],
+                // ["Team 11", "Team 12"],
+                // ["Team 13", "Team 14"],
+                // ["Team 15", "Team 16"]
                 ],
                 results : []
             }
             
-            var acData = ["kr:MC", "ca:HuK", "se:Naniwa", "pe:Fenix",
-                "us:IdrA", "tw:Sen", "fi:Naama"]
             /* function onclick(data) {
                 $('#matchCallback').text("onclick(data: '" + data + "')")
             }
@@ -89,13 +88,13 @@
                 }
             }
             
-            $(function() {
-                $('#matches .demo').bracket({
-                    init: autoCompleteData,
-                    save: function(){}, /* without save() labels are disabled */
-                    decorator: {edit: acEditFn,
-                                render: acRenderFn}})
-            })
+            // $(function() {
+            //     $('#matches .demo').bracket({
+            //         init: autoCompleteData,
+            //         save: function(){}, /* without save() labels are disabled */
+            //         decorator: {edit: acEditFn,
+            //                     render: acRenderFn}})
+            // })
             
             
             

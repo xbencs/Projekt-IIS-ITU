@@ -75,6 +75,86 @@
     @method('DELETE')
     <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
 </x-card>
+{{-- {{  $games }} --}}
+<script type="text/javascript">
+    var data ={{ Js::from($teams)}}
+    for (let index = 0; index < {{$listing->max_players/2}}; index++) {
+        autoCompleteData.teams.push([data[index].first,data[index].second]);
+    }
+
+    var tmp = {{$listing->max_players}};
+    var max_rounds = 1;
+    while (tmp >1 ) {
+        tmp = tmp/2;
+        max_rounds +=1;
+    }
+    var max_players= {{$listing->max_players}};
+    var data_results ={{ Js::from($results)}}
+    console.log(data_results);
+    
+    var id=0;
+    console.log(max_rounds);
+    for (let roundCount = 1; roundCount < max_rounds; roundCount++) {
+        console.log('Round '+roundCount);
+        max_players = max_players/2;
+        var round_results = new Array;
+        console.log('id '+id);
+        for (let index = 0; index < max_players; index++) {
+            if (id>= data_results.length) {
+                break;
+            }
+            console.log('index '+index);
+            // console.log('max players '+max_players);
+            round_results.push([data_results[id].first_score,data_results[id].second_score]);
+            id +=1;
+        }
+        console.log(round_results);
+        
+        autoCompleteData.results.push(round_results);
+        delete round_results;
+    }
+    
+    console.log('autoCompleteData');
+    console.log(autoCompleteData);
+
+    /* autoCompleteData ={
+        teams: [              // Matchups
+            ["Team 1", "Team 2"], // First match
+            ["Team 3", "Team 4"],
+            ["Team 5", "Team 6"],
+            ["Team 7", "Team 8"]
+        ],
+        results: [            // List of brackets (single elimination, so only one bracket)
+            [                     // List of rounds in bracket
+            [                   // First round in this bracket
+                [1, 2],           // Team 1 vs Team 2
+                [3, 4],            // Team 3 vs Team 4
+                [5, 4],
+                [1, 5]
+            ],
+            [                   // Second (final) round in single elimination bracket
+                [5, 6],           // Match for first place
+                [7, 8]            // Match for 3rd place
+            ]
+            ]
+        ]
+    } */
+    $(function() {
+        $('#matches .demo').bracket({
+            init: autoCompleteData,
+            skipConsolationRound: true,
+            teamWidth: 100,
+            scoreWidth: 50,
+            matchMargin: 50,
+            roundMargin: 50
+
+            // save: function(){}, /* without save() labels are disabled */
+            // decorator: {edit: acEditFn,
+            //             render: acRenderFn}
+        })
+    })
+    
+</script>
 <x-card  class="mt-4 p-2 flex space-x-6">
     {{-- <span id="matchCallback"></span> --}}
     <div  id="matches">

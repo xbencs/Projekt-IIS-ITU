@@ -18,28 +18,33 @@
 
             <div class="text-lg mt-4"> <i class="fa fa-envelope"></i> {{$user->email}}</div>
             
-            @if($user->is_approved === 1)
-                Approved by tournament creator
-                <span>&#10003;</span>
+            @if(auth()->user()->id != $listing->user_id)
+                @if($user->participate_listings()->where('listing_id', $listing->id)->first()->pivot->is_approved === 1)
+                    Approved by tournament creator
+                    <span>&#10003;</span>
+                @else
+                    Not-approved by tournament creator
+                    <i class="fa fa-close"></i>
+                @endif
             @else
-                Not-approved by tournament creator
-                <i class="fa fa-close"></i>
-            @endif
+            Change approvement
 
             <!-- Rounded switch -->
-
-        </div> 
-                
-    </div>
-        @if(auth()->user()->id === $listing->user_id)
+            @if(auth()->user()->id === $listing->user_id)
             <td>
                 @livewire('toggle-button', [
                 'user' => $user,
                 'listing' => $listing,
-                'field' => 'is_approved']
-                , key($user->id))
+                'field' => 'is_approved'],
+                key($user->id))
             </td>
+            @endif
         @endif
+        
+        </div> 
+                
+    </div>
+        
 </x-card>
 @livewireScripts
 </body>

@@ -164,7 +164,9 @@
                     <div class="dropdown-content">
                     <a href="/registered_teams" class="hover:text-laravel">Browse</a>
                     @auth
+                    @if(auth()->user()->current_team_id != NULL)
                     <a href="/teams/{{auth()->user()->current_team_id}}" class="hover:text-laravel">My team</a>
+                    @endif
                     @endauth
                     </div>
                   </div>

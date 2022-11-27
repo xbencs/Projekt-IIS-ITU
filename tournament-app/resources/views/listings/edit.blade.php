@@ -12,7 +12,7 @@
     <form method="POST" action="/listings/{{$listing->id}}" enctype="multipart/form-data">
             @csrf
             @method('PUT')
-            @if($lisitng->user_id == auth()->id())
+            @if($listing->user_id == auth()->id())
                 <div class="mb-6">
                     <label
                         for="title"
@@ -220,7 +220,7 @@
             @endif
 
 
-            
+
             <div class="mb-6">
                 <button
                     class="bg-laravel text-white rounded py-2 px-4 hover:bg-black"

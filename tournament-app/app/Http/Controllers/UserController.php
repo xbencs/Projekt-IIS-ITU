@@ -136,5 +136,12 @@ class UserController extends Controller
 
     }
 
+    //show tournaments user is involved in
+    public function schedule(){
+        return view('listings.personal_schedule', [
+            'listings' => auth()->user()->participate_listings //calling as property not as function
+        ]);
+    }
+
 
 }

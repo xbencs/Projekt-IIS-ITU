@@ -102,7 +102,17 @@ Route::get('/teams/{team}', [TeamController::class, 'show']);
 //delete listing
 Route::delete('/users/{user}', [UserController::class, 'destroy'])->middleware('auth');
 
-//edite someone
+//edit someone
 Route::post('/users/edit_someone', [UserController::class, 'edit_someone']);
+
+//show request form
+Route::get('/listings/{listing}/request_join', [ListingController::class, 'request_join'])->middleware('auth');
+
+//show request form
+Route::get('/listings/{listing}/participants', [ListingController::class, 'participants']);
+
+//showing my schedule
+Route::get('/schedule', [UserController::class, 'schedule'])->middleware('auth');
+
 
 

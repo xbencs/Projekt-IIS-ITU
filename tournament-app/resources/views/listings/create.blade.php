@@ -86,13 +86,13 @@
             >
                 *Tournament Descriptions
             </label>
-            <textarea
+            <input
                 class="border border-gray-200 rounded p-2 w-full"
                 name="descriptions"
                 rows="3"
                 placeholder="Include who are you looking for etc"
                 value="{{old('descriptions')}}"
-            ></textarea>
+            ></input>
             @error('descriptions')
                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
             @enderror
@@ -105,13 +105,13 @@
             >
                 *Tournament Conditions
             </label>
-            <textarea
+            <input
                 class="border border-gray-200 rounded p-2 w-full"
                 name="conditions"
                 rows="3"
                 placeholder="Include requirements, conditions etc"
                 value="{{old('conditions')}}"
-            ></textarea>
+            ></input>
             @error('conditions')
                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
             @enderror
@@ -168,6 +168,18 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
                 <option value="11">11</option>
+            </select>
+
+        </div>
+
+        <div class="mb-6">
+
+            <label for="collective"></label>
+            *Collective sport:
+
+            <select name="collective">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
             </select>
 
         </div>

@@ -18,13 +18,37 @@
 
         <h3 class="text-2xl mb-2">{{$listing->title}}</h3>
         <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
-        
-    <x-listing-tags :tagsCsv='$listing->sport' />
 
         <div class="text-lg my-4">
             <i class="fa-solid fa-location-dot"></i> {{$listing->location}}
+            @if ($listing->date)
+                <i class="far fa-calendar-alt"></i> {{$listing->date}}
+            @endif
         </div>
+
+
+        {{--button to enter tournament--}}
+        @if ($listing->collective == 1)
+        <div >
+            <a href="/listings/{{$listing->id}}/request_join"
+                class="mt-6 py-4">
+                <i class="fa-solid fa-code-merge"></i> 
+                Join Tournament as Team
+            </a>
+        </div>
+        @else 
+            <div >
+                <a href="/listings/{{$listing->id}}/request_join"
+                  class="mt-6 py-4">
+                  <i class="fa-solid fa-code-merge"></i> 
+                  Join Tournament as Player
+                </a>
+            </div>
+        @endif
+
+
         <div class="border border-gray-200 w-full mb-6"></div>
+        
         <div>
             <h3 class="text-3xl font-bold mb-4">
                 Tournament Description
@@ -62,6 +86,12 @@
                     <i class="fa-solid fas fa-pen"></i> 
                     Edit approval
                 </a>
+
+                <a  href="/listings/{{$listing->id}}/participants"
+                    class="block bg-black text-white mt-6 py-2 rounded-xl hover:opacity-80">
+                    <i class="fa-solid fas fa-users"></i>
+                    Show Players/Teams
+                    </a>
 
             </div>
         </div>

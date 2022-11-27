@@ -1,5 +1,4 @@
 <?php
-//TODO:
 
 namespace Database\Factories;
 
@@ -30,7 +29,7 @@ class ListingFactory extends Factory
             //'winner' => '',
             'website' => 'https://www.cesa.vut.cz/verejnost',
             'approved' => false,
-            
+            'collective' => false,
         ];
     }
 }

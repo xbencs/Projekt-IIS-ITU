@@ -28,4 +28,9 @@ class Listing extends Model
     public function user(){
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    // users in the tournaments
+    public function participated_users(){
+        return $this->belongsToMany(User::class, 'listing_user');
+    }
 }

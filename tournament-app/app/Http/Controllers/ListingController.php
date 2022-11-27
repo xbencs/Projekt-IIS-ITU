@@ -46,9 +46,20 @@ class ListingController extends Controller
             'winner' => '',
             'website' => 'required',
             'approved' => '',
+            'collective' => 'required',
+            'participants' => '',
         ]);
 
+        if($request['collective'] === "true"){
+            $formFields['collective'] = 1;
+        }else{
+            $formFields['collective'] = 0;
+        }
+
+
         $formFields['approved'] = false;
+        $formFields['participants'] = 5;
+
 
         if($request->hasFile('logo')){
             $formFields['logo'] = $request->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
@@ -131,4 +142,18 @@ class ListingController extends Controller
         return view('listings.manage', ['listings' => auth()->user()->listings()->get()]);
     }
 
+    //
+    public function request_join(Listing $listing, Request $request){
+        //syncWithoutDetaching adds row to pivot table preventing from adding duplicate rows
+        //https://stackoverflow.com/questions/17472128/preventing-laravel-adding-multiple-records-to-a-pivot-table
+        auth()->user()->participate_listings()->syncWithoutDetaching($listing->id);
+        return view('listings.request_join', ['listing' => $listing]);
+    }
+
+    //show participants on tournament
+    public function participants(Listing $listing){
+        return view('listings.participants', [
+            'users' => $listing->participated_users,
+        ]);
+    }
 }

@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_admin',
+        'tournament_id',
     ];
 
     /**
@@ -46,5 +47,10 @@ class User extends Authenticatable
     //Relationships with listings
     public function listings(){
         return $this->hasMany(Listing::class, 'user_id');
+    }
+
+    //Relationships:  one user(player) can participate in many tournaments (listings)
+    public function participate_listings(){
+        return $this->belongsToMany(Listing::class, 'listing_user');
     }
 }

@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('winner')->nullable();
             $table->date('date')->nullable();
             $table->boolean('approved');
+            $table->boolean('collective');
             $table->longText('descriptions');
             $table->timestamps();
         });

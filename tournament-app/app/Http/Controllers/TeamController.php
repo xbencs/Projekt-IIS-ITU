@@ -104,13 +104,16 @@ class TeamController extends Controller
             'name' => 'required',
         ]);
         $user = User::where('name','=',$formFields['name'])->first();
-        if($user->current_team_id != NULL)
-        {
-            return redirect('/teams/'.$team->id.'/manage')->with('message', 'Member is already in team');
-        }else {
+        if ($user!= NULL) {
+            if($user->current_team_id != NULL)
+            {
+                return redirect('/teams/'.$team->id.'/manage')->with('message', 'Member is already in team');
+            }
             $user->update(['current_team_id'=> $team->id]);
             return redirect('/teams/'.$team->id.'/manage')->with('message', 'Member added successfully');
-            
+        }
+        else {
+            return redirect('/teams/'.$team->id.'/manage')->with('message', 'User does not exist!');
         }
     }
 

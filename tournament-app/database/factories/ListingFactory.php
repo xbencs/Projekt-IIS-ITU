@@ -1,5 +1,4 @@
 <?php
-//TODO:
 
 namespace Database\Factories;
 
@@ -29,8 +28,8 @@ class ListingFactory extends Factory
             'prize' => $this->faker->word(),
             //'winner' => '',
             'website' => 'https://www.cesa.vut.cz/verejnost',
-            //'approved' => false,
-            
+            'approved' => false,
+            'collective' => false,
         ];
     }
 }

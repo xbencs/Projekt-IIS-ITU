@@ -1,5 +1,4 @@
 <?php
-//TODO:
 
 namespace App\Http\Controllers;
 
@@ -54,7 +53,7 @@ class ListingController extends Controller
     }
 
     //store listing data
-    public function store(Request $request){ //title = nazov, company=
+    public function store(Request $request){
         $formFields = $request->validate([
             'title' => 'required',
             'date' => '',
@@ -67,14 +66,19 @@ class ListingController extends Controller
             'prize' => '',
             'winner' => '',
             'website' => 'required',
-            //'approved' => '',
+            'approved' => '',
+            'collective' => 'required',
         ]);
 
-        /*if($request['approved'] === 'yes'){
-            $formFields['approved'] = true;
+        if($request['collective'] === "true"){
+            $formFields['collective'] = 1;
         }else{
-            $formFields['approved'] = false;
-        }*/
+            $formFields['collective'] = 0;
+        }
+
+
+        $formFields['approved'] = false;
+
 
         if($request->hasFile('logo')){
             $formFields['logo'] = $request->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
@@ -99,38 +103,44 @@ class ListingController extends Controller
     // update listing data
     public function update(Request $request, Listing $listing){
         //make sure logged in user is owner!
-        if($listing->user_id != auth()->id()){
+        if($listing->user_id != auth()->id() && auth()->user()->is_admin != 1){
             abort(403, 'Unathorized Action');
         }
 
-        $formFields = $request->validate([
-            'title' => 'required',
-            'date' => '',
-            'location' => 'required',
-            'email' => ['required', 'email'],
-            'sport' => '',
-            'conditions' => 'required',
-            'max_players' => 'required',
-            'descriptions' => 'required',
-            'prize' => '',
-            'winner' => '',
-            'website' => 'required',
-            //'approved' => '',
-        ]);
+        if(auth()->id() == $listing->user_id){
+            $formFields = $request->validate([
+                'title' => 'required',
+                'date' => '',
+                'location' => 'required',
+                'email' => ['required', 'email'],
+                'sport' => '',
+                'conditions' => 'required',
+                'max_players' => 'required',
+                'descriptions' => 'required',
+                'prize' => '',
+                'winner' => '',
+                'website' => 'required',
+            ]);
+        }
+        
 
-        /*if($request['approved'] === 'yes'){
-            $formFields['approved'] = true;
-        }else{
-            $formFields['approved'] = false;
-        }*/
+        if(auth()->user()->is_admin == 1){
+            if($request['approved'] === "false"){
+                $formFields['approved'] = 0;
+            }else{
+                $formFields['approved'] = 1;
+            }
+        }
+
 
         if($request->hasFile('logo')){
             $formFields['logo'] = $request->file('logo')->store('logos', 'public'); 
         }
 
         $listing->update($formFields);
+        //$formFields['approved'] = $request['approved'];
 
-        //Session::flash('message', 'Listing Create'); instead of this look at redirect and its flash message
+        //$formfields['approved'] = $listing->approved;
 
         return back()->with('message', 'Listing updated successfully!');
     }
@@ -151,4 +161,19 @@ class ListingController extends Controller
         return view('listings.manage', ['listings' => auth()->user()->listings()->get()]);
     }
 
+    //
+    public function request_join(Listing $listing, Request $request){
+        //syncWithoutDetaching adds row to pivot table preventing from adding duplicate rows
+        //https://stackoverflow.com/questions/17472128/preventing-laravel-adding-multiple-records-to-a-pivot-table
+        auth()->user()->participate_listings()->syncWithoutDetaching($listing->id);
+        return view('listings.request_join', ['listing' => $listing]);
+    }
+
+    //show participants on tournament
+    public function participants(Listing $listing){
+        return view('listings.participants', [
+            'users' => $listing->participated_users,
+            'listing' => $listing,
+        ]);
+    }
 }

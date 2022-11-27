@@ -22,10 +22,10 @@ class UserController extends Controller
             'is_admin' => '',
         ]);
 
-        if($request['is_admin'] === 'yes'){
-            $formFields['is_admin'] = true;
+        if($request['is_admin'] === "no"){
+            $formFields['is_admin'] = 1;
         }else{
-            $formFields['is_admin'] = false;
+            $formFields['is_admin'] = 0;
 
         }
 
@@ -134,6 +134,13 @@ class UserController extends Controller
             'user' => $user
         ]);
 
+    }
+
+    //show tournaments user is involved in
+    public function schedule(){
+        return view('listings.personal_schedule', [
+            'listings' => auth()->user()->participate_listings //calling as property not as function
+        ]);
     }
 
 

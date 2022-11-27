@@ -86,13 +86,13 @@
             >
                 *Tournament Descriptions
             </label>
-            <textarea
+            <input
                 class="border border-gray-200 rounded p-2 w-full"
                 name="descriptions"
                 rows="3"
                 placeholder="Include who are you looking for etc"
                 value="{{old('descriptions')}}"
-            ></textarea>
+            ></input>
             @error('descriptions')
                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
             @enderror
@@ -105,13 +105,13 @@
             >
                 *Tournament Conditions
             </label>
-            <textarea
+            <input
                 class="border border-gray-200 rounded p-2 w-full"
                 name="conditions"
                 rows="3"
                 placeholder="Include requirements, conditions etc"
                 value="{{old('conditions')}}"
-            ></textarea>
+            ></input>
             @error('conditions')
                 <p class="text-red-500 text-xs mt-1">{{$message}}</p>
             @enderror
@@ -122,8 +122,8 @@
             <label for="start">Start date:</label>
 
             <input  type="date" id="start" name="trip-start"
-                    value="2018-07-22"
-                    min="2018-01-01" max="2018-12-31">
+                    value="2022-12-24"
+                    onfocus="this.max=new Date().toISOString().split('T')[0]" max="2100-01-01">
 
         </div>
 
@@ -168,6 +168,18 @@
                 <option value="9">9</option>
                 <option value="10">10</option>
                 <option value="11">11</option>
+            </select>
+
+        </div>
+
+        <div class="mb-6">
+
+            <label for="collective"></label>
+            *Collective sport:
+
+            <select name="collective">
+                <option value="false">No</option>
+                <option value="true">Yes</option>
             </select>
 
         </div>

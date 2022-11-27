@@ -24,12 +24,13 @@ return new class extends Migration
             $table->string('location');
             $table->string('email');
             $table->string('website');
-            $table->string('conditions');
+            $table->longtext('conditions');
             $table->integer('max_players');
             $table->string('prize')->nullable();
             $table->string('winner')->nullable();
             $table->date('date')->nullable();
-            //$table->boolean('approved');
+            $table->boolean('approved');
+            $table->boolean('collective');
             $table->longText('descriptions');
             $table->timestamps();
         });

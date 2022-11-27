@@ -169,6 +169,7 @@
                     @endauth
                     </div>
                   </div>
+                  
                 @auth
                 <li>
                     <span class="font-bold uppercase">Welcome {{auth()->user()->name}}</span>
@@ -177,6 +178,13 @@
                     <a href="/listings/manage" class="hover:text-laravel"
                         ><i class="fas fa-list"></i>
                         Manage My Tournaments</a
+                    >
+                </li>
+
+                <li>
+                    <a href="/schedule" class="hover:text-laravel"
+                        ><i class="fas fa-calendar"></i>
+                        My Schedule</a
                     >
                 </li>
 

@@ -31,6 +31,6 @@ class Listing extends Model
 
     // users in the tournaments
     public function participated_users(){
-        return $this->belongsToMany(User::class, 'listing_user');
+        return $this->belongsToMany(User::class, 'listing_user')->withPivot('is_approved');
     }
 }

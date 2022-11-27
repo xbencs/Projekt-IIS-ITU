@@ -51,6 +51,6 @@ class User extends Authenticatable
 
     //Relationships:  one user(player) can participate in many tournaments (listings)
     public function participate_listings(){
-        return $this->belongsToMany(Listing::class, 'listing_user');
+        return $this->belongsToMany(Listing::class, 'listing_user')->withPivot('is_approved');
     }
 }

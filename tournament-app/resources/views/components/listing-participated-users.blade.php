@@ -1,9 +1,11 @@
 
-@props(['user'])
+@props(['user', 'listing'])
 <head>
     <link rel="stylesheet" href="/css/rounded_toggle_switch.css" />
+    @livewireStyles
 </head>
 <!-- Item 1 --> <!--new component-->
+<body>
 <x-card>
 
     <div class="flex">
@@ -15,27 +17,30 @@
             </h3>
 
             <div class="text-lg mt-4"> <i class="fa fa-envelope"></i> {{$user->email}}</div>
+            
+            @if($user->is_approved === 1)
+                Approved by tournament creator
+                <span>&#10003;</span>
+            @else
+                Not-approved by tournament creator
+                <i class="fa fa-close"></i>
+            @endif
 
-            <div class="mb-10">
-
-                @if($user->is_approved === 1)
-                    Approved by tournament creator
-                    <span>&#10003;</span>
-                @else
-                    Not-approved by tournament creator
-                    <i class="fa fa-close"></i>
-                @endif
-            </div>
-            {{--<div style = "position:relative; left:400px; bottom:80px;">
-                <label class="switch">
-                    <input type="checkbox" checked>
-                    <span class="slider round"></span>
-                </label>
-            </div>--}}
             <!-- Rounded switch -->
 
-
-
-        </div>
+        </div> 
+                
     </div>
+        @if(auth()->user()->id === $listing->user_id)
+            <td>
+                @livewire('toggle-button', [
+                'user' => $user,
+                'listing' => $listing,
+                'field' => 'is_approved']
+                , key($user->id))
+            </td>
+        @endif
 </x-card>
+@livewireScripts
+</body>
+

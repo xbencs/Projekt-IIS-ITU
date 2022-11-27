@@ -47,7 +47,6 @@ class ListingController extends Controller
             'website' => 'required',
             'approved' => '',
             'collective' => 'required',
-            'participants' => '',
         ]);
 
         if($request['collective'] === "true"){
@@ -58,7 +57,6 @@ class ListingController extends Controller
 
 
         $formFields['approved'] = false;
-        $formFields['participants'] = 5;
 
 
         if($request->hasFile('logo')){
@@ -154,6 +152,7 @@ class ListingController extends Controller
     public function participants(Listing $listing){
         return view('listings.participants', [
             'users' => $listing->participated_users,
+            'listing' => $listing,
         ]);
     }
 }

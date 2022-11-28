@@ -23,13 +23,14 @@ class ListingController extends Controller
     // show single listing
     public function show(Listing $listing){
         // $games = Game::where('listing_id','=',$listing->id)->get();
+        /* 
         $teams = DB::select('
         select f.name as first , s.name as second 
         from games g
         INNER JOIN teams f on g.first_team_id = f.id 
         INNER JOIN teams s on g.second_team_id = s.id 
         where g.listing_id = ? ;', [$listing->id]);
-        
+         */
         $results = DB::select('select first_score, second_score from games where listing_id = ?', [$listing->id]);
         // $i =0;
         // foreach($games as $game){
@@ -40,7 +41,7 @@ class ListingController extends Controller
         // echo json_encode($teams);
         return view('listings.show', [
             'listing' => $listing,
-            'teams' => $teams,
+            'teams' => $listing->approved_teams,
             'results' => $results
         ]);
 
@@ -165,12 +166,22 @@ class ListingController extends Controller
     public function request_join(Listing $listing, Request $request){
         //syncWithoutDetaching adds row to pivot table preventing from adding duplicate rows
         //https://stackoverflow.com/questions/17472128/preventing-laravel-adding-multiple-records-to-a-pivot-table
-        auth()->user()->participate_listings()->syncWithoutDetaching($listing->id);
+        if ($listing->collective) {
+            auth()->user()->member()->participate_listings()->syncWithoutDetaching($listing->id);
+        }else{
+            auth()->user()->participate_listings()->syncWithoutDetaching($listing->id);
+        }
         return view('listings.request_join', ['listing' => $listing]);
     }
 
     //show participants on tournament
     public function participants(Listing $listing){
+        if ($listing->collective) {
+            return view('listings.participants', [
+                'teams' => $listing->participated_teams,
+                'listing' => $listing,
+            ]);
+        }
         return view('listings.participants', [
             'users' => $listing->participated_users,
             'listing' => $listing,

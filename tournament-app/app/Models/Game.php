@@ -10,8 +10,10 @@ class Game extends Model
     use HasFactory;
 
     protected $fillable = [
-        'first_score',
-        'second_score'
+        'first_team_id' => 'required',
+        'second_team_id' => 'required',
+        'first_score' => 'required',
+        'second_team' => 'required'
     ];
 
     protected $visible = ['first_score', 'last_score'];

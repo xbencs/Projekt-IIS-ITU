@@ -22,6 +22,7 @@
             <div class="text-lg my-4">
                 <i class="fa-solid fa-location-dot"></i> {{$listing->location}}
                 <i class="far fa-calendar-alt"></i> {{$listing->date}}
+
             </div>
     
     
@@ -114,62 +115,100 @@
         
     <x-card class="mt-4 p-2 flex space-x-6">
     
-        <form method="POST" action="/listings/{{$listing->id}}">
+
+<x-card class="mt-4 p-2 flex space-x-6">
+
+    <form method="POST" action="/listings/{{$listing->id}}">
+    @csrf
+    @method('DELETE')
+    <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
+</x-card>
+@if($listing->user_id == auth()->id())
+<x-card>
+    <form method="POST" action="/listings/{{$listing->id}}/game" enctype="multipart/form-data">
         @csrf
-        @method('DELETE')
-        <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
-    </x-card>
-    {{-- {{  $games }} --}}
-    <script type="text/javascript">
-        var data ={{ Js::from($teams)}}
-        // console.log(data[0].name);
-        
-        for (let index = 0; index < data.length; index++) {
-            var match = new Array;
-            if(data[index]!= null)
-                match.push(data[index].name);
-            index++;
-            if(data[index]!= null)
-                match.push(data[index].name);
-            else
-                match.push(null);
-            autoCompleteData.teams.push(match);
-        }
-        /* for (let index = 0; index < {{$listing->max_players/2}}; index++) {
-            autoCompleteData.teams.push([data[index].first,data[index].second]);
-        } */
-    
-        var tmp = {{$listing->max_players}};
-        var max_rounds = 1;
-        while (tmp >1 ) {
-            tmp = tmp/2;
-            max_rounds +=1;
-        }
-        var max_players= {{$listing->max_players}};
-        var data_results ={{ Js::from($results)}}
-        
-        var id=0;
-        for (let roundCount = 1; roundCount < max_rounds; roundCount++) {
-            max_players = max_players/2;
-            var round_results = new Array;
-            for (let index = 0; index < max_players; index++) {
-                if(typeof data_results[id] !== 'undefined')
-                {
-                    if (typeof  data_results[id].first_score == 'undefined' && typeof data_results[id].second_score !== 'undefined')
-                        round_results.push([null,data_results[id].second_score]);
-                    if (typeof data_results[id].first_score !== 'undefined' && typeof data_results[id].second_score == 'undefined')
-                        round_results.push([data_results[id].first_score,null]);
-                    if (typeof data_results[id].first_score !== 'undefined' && typeof data_results[id].second_score !== 'undefined')
-                        round_results.push([data_results[id].first_score,data_results[id].second_score]);
-                }else{
-                    round_results.push([null,null]);
-                }
-    
-                id +=1;
-            }
+        @method('PUT')
+
+            <div class="mb-6">
+
+                <label for="first_team_id">Choose team:</label>
+                
+                <select name="first_team_id">
+                    @foreach ($teams as $team)
+                    <option value="{{$team->id}}">{{$team->name}}</option>    
+                    @endforeach
+                </select>
+
+                <label for="first_score">score:</label>
+                <input type="number" id="first_score" name="first_score" min="0" max="99">
+
+                <label for="second_score">:</label>
+                <input type="number" id="second_score" name="first_score" min="0" max="99">
+
+                <label for="second_team_id">Choose team:</label>
+
+                <select name="second_team_id">
+                    @foreach ($teams as $team)
+                    <option value="{{$team->id}}">{{$team->name}}</option>    
+                    @endforeach
+                </select>
+                <button
+                    class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
+                    Add score
+                </button>
+            </div>
+
             
-            autoCompleteData.results.push(round_results);
-            delete round_results;
+        </form>
+    </x-card>
+@endif
+{{-- {{  $games }} --}}
+<script type="text/javascript">
+    var data ={{ Js::from($teams)}}
+    // console.log(data[0].name);
+    
+    for (let index = 0; index < data.length; index++) {
+        var match = new Array;
+        if(data[index]!= null)
+            match.push(data[index].name);
+        index++;
+        if(data[index]!= null)
+            match.push(data[index].name);
+        else
+            match.push(null);
+        autoCompleteData.teams.push(match);
+    }
+    /* for (let index = 0; index < {{$listing->max_players/2}}; index++) {
+        autoCompleteData.teams.push([data[index].first,data[index].second]);
+    } */
+
+    var tmp = {{$listing->max_players}};
+    var max_rounds = 1;
+    while (tmp >1 ) {
+        tmp = tmp/2;
+        max_rounds +=1;
+    }
+    var max_players= {{$listing->max_players}};
+    var data_results ={{ Js::from($results)}}
+    
+    var id=0;
+    for (let roundCount = 1; roundCount < max_rounds; roundCount++) {
+        max_players = max_players/2;
+        var round_results = new Array;
+        for (let index = 0; index < max_players; index++) {
+            if(typeof data_results[id] !== 'undefined')
+            {
+                if (typeof  data_results[id].first_score == 'undefined' && typeof data_results[id].second_score !== 'undefined')
+                    round_results.push([null,data_results[id].second_score]);
+                if (typeof data_results[id].first_score !== 'undefined' && typeof data_results[id].second_score == 'undefined')
+                    round_results.push([data_results[id].first_score,null]);
+                if (typeof data_results[id].first_score !== 'undefined' && typeof data_results[id].second_score !== 'undefined')
+                    round_results.push([data_results[id].first_score,data_results[id].second_score]);
+            }else{
+                round_results.push([null,null]);
+            }
+
+            id +=1;
         }
         
         console.log('autoCompleteData');
@@ -196,66 +235,123 @@
                 ]
                 ]
             ]
-        } */
-        function saveFn(data, userData) {
-            var matches = new Array;
-            var match_c =0;
-            for (let index = 0; index < data.results.length; index++) {
-                for (let y = 0; y < data.results[index].length; y++) {
-                    matches[match_c][fist] data.results[index][0]
+
+        ]
+    } */
+
+    function arrayRemove(arr, value) {    
+        return arr.filter(function(ele){ 
+            return ele != value; 
+        });
+    }
+    function saveFn(data, userData) {
+        var matches = new Array;
+        var match_c =0;
+        
+        var teams= new Array;
+        for (let index = 0; index < data.teams.length; index++) {
+            teams.push(data.teams[index][0]);
+            teams.push(data.teams[index][1]);
+            
+        }
+        
+        for (let index = 0; index < data.results[0].length; index++) {
+            var cnt=0;
+            for (let y = 0; y < data.results[0][index].length; y++) {
+                matches[match_c]=new Array;
+                // console.log('index'+index+' y '+y+'data '+data.results[0][index][y][0]);
+                if(typeof data.results[0][index][y][0] !== 'undefined' && typeof data.results[0][index][y][1] !== 'undefined')
+                {
+                    if(typeof data.results[0][index][y][0] !== 'undefined')
+                    {
+                        matches[match_c].push(data.results[0][index][y][0]);
+                    }
+                    else
+                    matches[match_c].push(null);
+                    if(typeof data.results[0][index][y][1] !== 'undefined')
+                    {
+                        matches[match_c].push(data.results[0][index][y][1]);
+                        
+                    }
+                    else
+                    matches[match_c].push(null);
+                    
+                }
+                if (typeof data.results[0][index][y][0] !== 'undefined' && typeof data.results[0][index][y][1]!== 'undefined') {
+                    matches[match_c].push(teams[cnt]);
+                    cnt++;
+                    matches[match_c].push(teams[cnt]);
                     
                 }
                 
+                if(index==0)
+                {
+                    if(data.results[0][index][y][0] > data.results[0][index][y][1])
+                        teams= arrayRemove(teams,data.teams[y][1]);
+                    
+                    
+                    if(data.results[0][index][y][0] < data.results[0][index][y][1])
+                        teams= arrayRemove(teams,data.teams[y][0]);
+                }
+                if (index>0) {
+                    if(data.results[0][index][y][0] < data.results[0][index][y][1])
+                        teams= arrayRemove(teams,teams[y]);
+
+                    if(data.results[0][index][y][0] > data.results[0][index][y][1])
+                        teams= arrayRemove(teams,teams[y+1]);
+                }
+                match_c++;
             }
-            var json = jQuery.toJSON(data);
-            // console.log('json:')
-            console.log(data);
-            $('#saveOutput').text('POST '+userData+' '+json)
-            /* You probably want to do something like this
-            jQuery.ajax("rest/"+userData, {contentType: 'application/json',
-                                            dataType: 'json',
-                                            type: 'post',
-                                            data: json})
-            */
+
         }
-        $(function() {
-            /* $('#matches .demo').bracket({
-                init: autoCompleteData,
-                skipConsolationRound: true,
-                teamWidth: 150,
-                scoreWidth: 50,
-                matchMargin: 50,
-                roundMargin: 50
+        console.log(matches);
+        var json = jQuery.toJSON(matches)
+        //var json = JSON.stringify(matches);
+        console.log('json:'+json)
+        // console.log(data);
+        $('#saveOutput').text('POST '+userData+' '+json)
+        jQuery.ajax("/api/listing/"+{{$listing->id}}+"/game", {contentType: 'application/json',
+                                        dataType: 'json',
+                                        type: 'post',
+                                        data: json})
+        
+    }
+    $(function() {
+        /* $('#matches .demo').bracket({
+            init: autoCompleteData,
+            skipConsolationRound: true,
+            teamWidth: 150,
+            scoreWidth: 50,
+            matchMargin: 50,
+            roundMargin: 50
+
+            save: saveFn,
+        }) */
+        var container = $('#matches .demo')
+        container.bracket({
+            init: autoCompleteData,
+            skipConsolationRound: true,
+            disableTeamEdit:true,
+            disableToolbar: true,
+            teamWidth: 150,
+            scoreWidth: 50,
+            matchMargin: 50,
+            roundMargin: 50,
+            save: saveFn,
+            // userData: "http://myapi"
+        })
     
-                save: saveFn,
-            }) */
-            var container = $('#matches .demo')
-            container.bracket({
-                init: autoCompleteData,
-                skipConsolationRound: true,
-                disableTeamEdit:true,
-                disableToolbar: true,
-                teamWidth: 150,
-                scoreWidth: 50,
-                matchMargin: 50,
-                roundMargin: 50,
-                save: saveFn,
-                // userData: "http://myapi"
-            })
-        
-            /* You can also inquiry the current data */
-            var data = container.bracket('data')
-            $('#dataOutput').text(jQuery.toJSON(data))
-            })
-        
-    </script>
-    <x-card  class="mt-4 p-2 flex space-x-6">
-        {{-- <span id="matchCallback"></span> --}}
-        <div  id="matches">
-          <div class="demo">
-          </div>
-        </div>
-    </x-card>
+        /* You can also inquiry the current data */
+        var data = container.bracket('data')
+        $('#dataOutput').text(jQuery.toJSON(data))
+        })
+    
+</script>
+<x-card  class="mt-4 p-2 flex space-x-6">
+    {{-- <span id="matchCallback"></span> --}}
+    <div  id="matches">
+      <div class="demo">
+      </div>
     </div>
     </x-layout>
         

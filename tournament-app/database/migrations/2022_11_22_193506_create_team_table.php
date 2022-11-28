@@ -40,12 +40,8 @@ return new class extends Migration
         });
 
         Schema::create('team_user', function(Blueprint $table) {
-            //$table->integer('user_id')->unsigned();
-            //$table->integer('team_id')->unsigned();
-            
-            $table->foreignId('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade')->unsigned();
-            $table->foreignId('team_id')->references('id')->on('teams')->onDelete('cascade')->unsigned();
-            $table->timestamps();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('team_id')->constrained()->onDelete('cascade');
         });
     }
 

@@ -6,6 +6,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -49,6 +50,11 @@ class User extends Authenticatable
         return $this->hasMany(Listing::class, 'user_id');
     }
 
+    public function member()
+    {
+        return Team::find(auth()->user()->current_team_id);
+        // return $this->belongsTo(Team::class, 'current_team_id');
+    }
     //Relationships:  one user(player) can participate in many tournaments (listings)
     public function participate_listings(){
         return $this->belongsToMany(Listing::class, 'listing_user')->withPivot('is_approved');

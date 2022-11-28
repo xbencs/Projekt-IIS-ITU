@@ -1,5 +1,5 @@
 
-@props(['user', 'listing'])
+@props(['team', 'listing'])
 <head>
     {{-- <link rel="stylesheet" href="/css/rounded_toggle_switch.css" /> --}}
     <style>
@@ -26,13 +26,13 @@
         <div>
             <h3 class="text-2xl">
                 {{--<div class="text-xl font-bold mb-4">{{$user->name}}</div>--}}
-                <a href="/users/{{$user->id}}''">{{$user->name}}</a>
+                <a href="/teams/{{$team->id}}''">{{$team->name}}</a>
             </h3>
 
-            <div class="text-lg mt-4"> <i class="fa fa-envelope"></i> {{$user->email}}</div>
+            {{-- <div class="text-lg mt-4"> <i class="fa fa-envelope"></i> {{$tea->email}}</div> --}}
             
             @if(auth()->user()->id != $listing->user_id)
-                @if($user->participate_listings()->where('listing_id', $listing->id)->first()->pivot->is_approved === 1)
+                @if($team->participate_listings()->where('listing_id', $listing->id)->first()->pivot->is_approved === 1)
                     Approved by tournament creator
                     <span>&#10003;</span>
                 @else
@@ -46,10 +46,10 @@
             @if(auth()->user()->id === $listing->user_id)
             <td>
                 @livewire('toggle-button', [
-                'user' => $user,
+                'team' => $team,
                 'listing' => $listing,
                 'field' => 'is_approved'],
-                key($user->id))
+                key($team->id))
             </td>
             @endif
         @endif

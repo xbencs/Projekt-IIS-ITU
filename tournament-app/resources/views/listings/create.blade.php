@@ -66,17 +66,15 @@
                 for="website"
                 class="inline-block text-lg mb-2"
             >
-                *Website/Application URL
+                Website/Application URL
             </label>
             <input
                 type="text"
                 class="border border-gray-200 rounded p-2 w-full"
                 name="website"
-                value="{{old('website')}}"
+                placeholder="https://www.cesa.vut.cz"
+                value="https://www.cesa.vut.cz"
             />
-            @error('website')
-                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-            @enderror
         </div>
 
         <div class="mb-6">
@@ -103,7 +101,7 @@
                 for="conditions"
                 class="inline-block text-lg mb-2"
             >
-                *Tournament Conditions
+                Tournament Conditions
             </label>
             <input
                 class="border border-gray-200 rounded p-2 w-full"
@@ -112,28 +110,26 @@
                 placeholder="Include requirements, conditions etc"
                 value="{{old('conditions')}}"
             ></input>
-            @error('conditions')
-                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-            @enderror
         </div>
 
         <div class="mb-6">
 
-            <label for="start">Start date:</label>
+            <label for="date">*Start date:</label>
 
-            <input  type="date" id="start" name="trip-start"
-                    value="2022-12-24"
-                    onfocus="this.max=new Date().toISOString().split('T')[0]" max="2100-01-01">
-
+            <input  type="date" id="date" name="date"
+                    value="this.max=new Date().toISOString().split('T')[0]"
+                    max="2100-01-01"
+                    min="new Date().toISOString().split('T')[0]"
+            >
         </div>
 
         <div class="mb-6">
 
             <label for="sport"></label>
-            Choose sport:
+            *Choose sport:
 
             <select name="sport">
-                <option selected>Please choose:</option>
+                <option value="another"selected>Please choose:</option>
                 <option value="tenis">tenis</option>
                 <option value="pingpong">pingpong</option>
                 <option value="basketball">basketball</option>
@@ -146,6 +142,7 @@
                 <option value="softball">softball</option>
                 <option value="floorball">floorball</option>
                 <option value="handball">handball</option>
+                <option value="another">another</option>
             </select>
 
         </div>
@@ -156,7 +153,7 @@
             *Choose number of Players//Teams:
 
             <select name="max_players">
-                <option selected>Please choose:</option>
+                <option value="2" selected>Please choose:</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>

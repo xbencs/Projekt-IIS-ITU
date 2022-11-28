@@ -24,6 +24,6 @@ return [
     |
     */
 
-    'timeout' => 1,
+    'timeout' => 15,
 
 ];

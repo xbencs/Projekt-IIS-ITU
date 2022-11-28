@@ -10,16 +10,16 @@
             alt=""
         />
         <div>
-            <h3 class="text-2xl">
+            <h3 class="text-2xl font-bold">
                 <a href="./listings/{{$listing->id}}">{{$listing->title}}</a>
             </h3>
-            <div class="text-xl font-bold mb-4">{{$listing->company}}</div>
-            <x-listing-tags :tagsCsv="$listing->sport">
-                <div class="text-lg mt-4">
-                    <i class="fa-solid fa-location-dot"></i> {{$listing->location}}
-                </div>
-            </x-listing-tags>
-            
+            <x-listing-tags :tagsCsv="$listing->sport"> </x-listing-tags>
+
+            <div class="text-lg mt-4">
+                <i class="fa-solid fa-location-dot"></i> {{$listing->location}}
+            </div>
+           
+            <i class="far fa-calendar-alt"></i> {{$listing->date}}
             
             <div class="mb-10">
                  

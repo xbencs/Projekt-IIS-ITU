@@ -117,21 +117,24 @@
 
         <div class="mb-6">
 
-            <label for="start">Start date:</label>
+            <label for="date">*Start date:</label>
 
             <input  type="date" id="start" name="date"
-            value="this.max=new Date().toISOString().split('T')[0]"
-            max="2100-01-01">
+                    value="this.max=new Date().toISOString().split('T')[0]"
+                    max="2100-01-01">
+            @error('date')
+                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+            @enderror
 
         </div>
 
         <div class="mb-6">
 
             <label for="sport"></label>
-            Choose sport:
+            *Choose sport:
 
             <select name="sport">
-                <option selected>Please choose:</option>
+                <option value="another"selected>Please choose:</option>
                 <option value="tenis">tenis</option>
                 <option value="pingpong">pingpong</option>
                 <option value="basketball">basketball</option>
@@ -144,6 +147,7 @@
                 <option value="softball">softball</option>
                 <option value="floorball">floorball</option>
                 <option value="handball">handball</option>
+                <option value="another">another</option>
             </select>
 
         </div>

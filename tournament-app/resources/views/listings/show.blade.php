@@ -105,6 +105,45 @@
     @method('DELETE')
     <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
 </x-card>
+@if($listing->user_id == auth()->id())
+<x-card>
+    <form method="POST" action="/listings/{{$listing->id}}/game" enctype="multipart/form-data">
+        @csrf
+        @method('PUT')
+
+            <div class="mb-6">
+
+                <label for="first_team_id">Choose team:</label>
+                
+                <select name="first_team_id">
+                    @foreach ($teams as $team)
+                    <option value="{{$team->id}}">{{$team->name}}</option>    
+                    @endforeach
+                </select>
+
+                <label for="first_score">score:</label>
+                <input type="number" id="first_score" name="first_score" min="0" max="99">
+
+                <label for="second_score">:</label>
+                <input type="number" id="second_score" name="first_score" min="0" max="99">
+
+                <label for="second_team_id">Choose team:</label>
+
+                <select name="second_team_id">
+                    @foreach ($teams as $team)
+                    <option value="{{$team->id}}">{{$team->name}}</option>    
+                    @endforeach
+                </select>
+                <button
+                    class="bg-laravel text-white rounded py-2 px-4 hover:bg-black">
+                    Add score
+                </button>
+            </div>
+
+            
+        </form>
+    </x-card>
+@endif
 {{-- {{  $games }} --}}
 <script type="text/javascript">
     var data ={{ Js::from($teams)}}
@@ -183,26 +222,83 @@
             ]
         ]
     } */
+
+    function arrayRemove(arr, value) {    
+        return arr.filter(function(ele){ 
+            return ele != value; 
+        });
+    }
     function saveFn(data, userData) {
         var matches = new Array;
         var match_c =0;
-        for (let index = 0; index < data.results.length; index++) {
-            for (let y = 0; y < data.results[index].length; y++) {
-                matches[match_c][fist] data.results[index][0]
-                
-            }
+        
+        var teams= new Array;
+        for (let index = 0; index < data.teams.length; index++) {
+            teams.push(data.teams[index][0]);
+            teams.push(data.teams[index][1]);
             
         }
-        var json = jQuery.toJSON(data);
-        // console.log('json:')
-        console.log(data);
+        
+        for (let index = 0; index < data.results[0].length; index++) {
+            var cnt=0;
+            for (let y = 0; y < data.results[0][index].length; y++) {
+                matches[match_c]=new Array;
+                // console.log('index'+index+' y '+y+'data '+data.results[0][index][y][0]);
+                if(typeof data.results[0][index][y][0] !== 'undefined' && typeof data.results[0][index][y][1] !== 'undefined')
+                {
+                    if(typeof data.results[0][index][y][0] !== 'undefined')
+                    {
+                        matches[match_c].push(data.results[0][index][y][0]);
+                    }
+                    else
+                    matches[match_c].push(null);
+                    if(typeof data.results[0][index][y][1] !== 'undefined')
+                    {
+                        matches[match_c].push(data.results[0][index][y][1]);
+                        
+                    }
+                    else
+                    matches[match_c].push(null);
+                    
+                }
+                if (typeof data.results[0][index][y][0] !== 'undefined' && typeof data.results[0][index][y][1]!== 'undefined') {
+                    matches[match_c].push(teams[cnt]);
+                    cnt++;
+                    matches[match_c].push(teams[cnt]);
+                    
+                }
+                
+                if(index==0)
+                {
+                    if(data.results[0][index][y][0] > data.results[0][index][y][1])
+                        teams= arrayRemove(teams,data.teams[y][1]);
+                    
+                    
+                    if(data.results[0][index][y][0] < data.results[0][index][y][1])
+                        teams= arrayRemove(teams,data.teams[y][0]);
+                }
+                if (index>0) {
+                    if(data.results[0][index][y][0] < data.results[0][index][y][1])
+                        teams= arrayRemove(teams,teams[y]);
+
+                    if(data.results[0][index][y][0] > data.results[0][index][y][1])
+                        teams= arrayRemove(teams,teams[y+1]);
+                }
+                match_c++;
+            }
+
+        }
+        console.log(matches);
+        var json = jQuery.toJSON(matches)
+        //var json = JSON.stringify(matches);
+        console.log('json:'+json)
+        // console.log(data);
         $('#saveOutput').text('POST '+userData+' '+json)
-        /* You probably want to do something like this
-        jQuery.ajax("rest/"+userData, {contentType: 'application/json',
+        jQuery.ajax("/api/listing/"+{{$listing->id}}+"/game", {contentType: 'application/json',
                                         dataType: 'json',
                                         type: 'post',
                                         data: json})
-        */
+        
     }
     $(function() {
         /* $('#matches .demo').bracket({

@@ -101,7 +101,7 @@
                 for="conditions"
                 class="inline-block text-lg mb-2"
             >
-                *Tournament Conditions
+                Tournament Conditions
             </label>
             <input
                 class="border border-gray-200 rounded p-2 w-full"
@@ -110,22 +110,17 @@
                 placeholder="Include requirements, conditions etc"
                 value="{{old('conditions')}}"
             ></input>
-            @error('conditions')
-                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-            @enderror
         </div>
 
         <div class="mb-6">
 
             <label for="date">*Start date:</label>
 
-            <input  type="date" id="start" name="date"
+            <input  type="date" id="date" name="date"
                     value="this.max=new Date().toISOString().split('T')[0]"
-                    max="2100-01-01">
-            @error('date')
-                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
-            @enderror
-
+                    max="2100-01-01"
+                    min="new Date().toISOString().split('T')[0]"
+            >
         </div>
 
         <div class="mb-6">

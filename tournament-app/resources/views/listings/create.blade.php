@@ -121,9 +121,9 @@
 
             <label for="start">Start date:</label>
 
-            <input  type="date" id="start" name="trip-start"
-                    value="2022-12-24"
-                    onfocus="this.max=new Date().toISOString().split('T')[0]" max="2100-01-01">
+            <input  type="date" id="start" name="date"
+            value="this.max=new Date().toISOString().split('T')[0]"
+            max="2100-01-01">
 
         </div>
 

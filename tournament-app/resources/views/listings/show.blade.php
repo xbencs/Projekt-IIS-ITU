@@ -213,6 +213,7 @@
         
         console.log('autoCompleteData');
         console.log(autoCompleteData);
+    }
     
         /* autoCompleteData ={
             teams: [              // Matchups
@@ -347,6 +348,7 @@
         })
     
 </script>
+</x-card>
     <x-card  class="mt-4 p-2 flex space-x-6">
         {{-- <span id="matchCallback"></span> --}}
         <div  id="matches">

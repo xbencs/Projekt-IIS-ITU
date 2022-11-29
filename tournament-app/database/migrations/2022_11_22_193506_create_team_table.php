@@ -35,6 +35,7 @@ return new class extends Migration
             // $table->string('slug')->unique();
             $table->string('description');
             //$table->text('team_information');
+            $table->string('logo')->nullable()->unique();
 
             $table->timestamps();
         });

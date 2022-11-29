@@ -80,13 +80,6 @@ class ListingController extends Controller
 
         $formFields['approved'] = false;
 
-
-        if($request->hasFile('logo')){
-            $formFields['logo'] = $request->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
-                                                                                    // after new tournament with logo is created run: php artisan storage:link
-
-        }
-
         $formFields['user_id'] = auth()->id();
 
         Listing::create($formFields);
@@ -133,15 +126,7 @@ class ListingController extends Controller
             }
         }
 
-
-        if($request->hasFile('logo')){
-            $formFields['logo'] = $request->file('logo')->store('logos', 'public'); 
-        }
-
         $listing->update($formFields);
-        //$formFields['approved'] = $request['approved'];
-
-        //$formfields['approved'] = $listing->approved;
 
         return back()->with('message', 'Listing updated successfully!');
     }

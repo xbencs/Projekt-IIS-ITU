@@ -13,7 +13,7 @@ class Team extends Model
         'name',
         'players_count',
         'description',
-        'owner_id'
+        'owner_id',
     ];
 
     // A team can have many members.

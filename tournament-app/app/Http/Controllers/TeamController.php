@@ -36,14 +36,14 @@ class TeamController extends Controller
     public function store(Request $request){
         $formFields = $request->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
         ]);
 
-        /* if($request->hasFile('logo')){
-            $formFields['logo'] = $request->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
+        if($request->hasFile('logo')){
+            $formFields['logo'] = request()->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
                                                                                     // after new tournament with logo is created run: php artisan storage:link
 
-        } */
+        }
 
         $formFields['owner_id'] = auth()->id();
 

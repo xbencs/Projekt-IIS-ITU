@@ -8,7 +8,10 @@
         <div
             class="flex flex-col items-center justify-center text-center"
         >
-        <img class="w-24" src="{{asset('image/user.png')}}" alt="" class="logo"/>
+        <img class="w-48 mr-6 mb-6"
+          {{--src="{{$team->logo ? asset('storage' . $team->logo) : asset('/image/no-image.png')}}" alt="" />--}}
+          src="{{$team->logo ? asset('storage/' . $team->logo) : asset('/image/no-image.png')}}" alt="" />
+
     
             <h3 class="text-2xl mb-2">{{$team->name}}</h3>
                 

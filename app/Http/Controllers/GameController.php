@@ -3,12 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\GameRequest;
+use App\Http\Resources\GameResource;
 use Illuminate\Validation\Rule;
 use App\Models\Game;
 
 class GameController extends Controller
 {
-    public function update(Request $request, Team $listing){
+    public function index(){
+        return Game::all();
+    }
+
+    public function store(GameRequest $request)
+    {
+        $game = Game::where([['first_team_id','=',$request->first_team_id],['second_team_id','=', $request->second_team_id],['listing_id','=', $request->listing_id]])->first();
+        if(is_null($game))
+            return new GameResource(Game::create($request->all()));
+        else
+            $game->update($request->all());
+    }
+    /* public function update(Request $request, Team $listing){
         //make sure logged in user is owner!
         if($listing->user_id != auth()->id()){
             abort(403, 'Unathorized Action');
@@ -30,7 +44,7 @@ class GameController extends Controller
         //         ', $formfields['first_score'], $formfields['second_score'],$formfields['first_team_id'],$formfields['second_team_id'],$listing_id);
 
         return redirect('/listings/'.$listing->id)->with('message', 'successfully');
-    }
+    } */
     /* public function update(Request $request,$listing)
     {
         $json = json_decode($request,true);

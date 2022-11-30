@@ -13,10 +13,11 @@ class Game extends Model
         'first_team_id' => 'required',
         'second_team_id' => 'required',
         'first_score' => 'required',
-        'second_team' => 'required'
+        'second_score' => 'required',
+        'listing_id' => 'required'
     ];
 
-    protected $visible = ['first_score', 'last_score'];
+    protected $visible = ['first_score', 'second_score'];
 
 
     /**

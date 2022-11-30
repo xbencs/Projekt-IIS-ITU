@@ -46,4 +46,7 @@ class Listing extends Model
     public function approved_teams(){
         return $this->belongsToMany(Team::class, 'listing_team')->withPivot('is_approved')->wherePivot('is_approved', '=', 1);
     }
+    public function approved_users(){
+        return $this->belongsToMany(User::class, 'listing_user')->withPivot('is_approved')->wherePivot('is_approved', '=', 1);
+    }
 }

@@ -39,11 +39,18 @@ class ListingController extends Controller
         //     $i +=1;
         // }
         // echo json_encode($teams);
-        return view('listings.show', [
-            'listing' => $listing,
-            'teams' => $listing->approved_teams,
-            'results' => $results
-        ]);
+        if($listing->collective)
+            return view('listings.show', [
+                'listing' => $listing,
+                'teams' => $listing->approved_teams,
+                'results' => $results
+            ]);
+        else
+            return view('listings.show', [
+                'listing' => $listing,
+                'users' => $listing->approved_users,
+                'results' => $results
+            ]);
 
     }
 

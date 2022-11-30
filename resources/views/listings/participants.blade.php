@@ -9,7 +9,7 @@
                                               :listing="$listing" />
             @endforeach
         @else 
-            <p>No players found</p>
+            <p>No teams found</p>
         @endunless
     </div>
     @else

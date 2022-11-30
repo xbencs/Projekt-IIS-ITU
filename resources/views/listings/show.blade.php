@@ -123,6 +123,7 @@
     @method('DELETE')
     <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
 </x-card>
+{{-- 
 @if($listing->user_id == auth()->id())
 <x-card>
     <form method="POST" action="/listings/{{$listing->id}}/game" enctype="multipart/form-data">
@@ -162,9 +163,15 @@
         </form>
     </x-card>
 @endif
+ --}}
 {{-- {{  $games }} --}}
 <script type="text/javascript">
+    @if($listing->collective)
     var data ={{ Js::from($teams)}}
+    @else
+    var data ={{ Js::from($users)}}
+    @endif
+    console.log(data);
     // console.log(data[0].name);
     
     for (let index = 0; index < data.length; index++) {
@@ -210,9 +217,9 @@
 
             id +=1;
         }
+        autoCompleteData.results.push(round_results);
+        delete round_results;
         
-        console.log('autoCompleteData');
-        console.log(autoCompleteData);
     }
     
         /* autoCompleteData ={
@@ -246,7 +253,7 @@
         });
     }
     function saveFn(data, userData) {
-        var matches = new Array;
+        var matches = [];
         var match_c =0;
         
         var teams= new Array;
@@ -259,29 +266,33 @@
         for (let index = 0; index < data.results[0].length; index++) {
             var cnt=0;
             for (let y = 0; y < data.results[0][index].length; y++) {
-                matches[match_c]=new Array;
+                match={};
                 // console.log('index'+index+' y '+y+'data '+data.results[0][index][y][0]);
                 if(typeof data.results[0][index][y][0] !== 'undefined' && typeof data.results[0][index][y][1] !== 'undefined')
                 {
                     if(typeof data.results[0][index][y][0] !== 'undefined')
                     {
-                        matches[match_c].push(data.results[0][index][y][0]);
+                        match['first_score']=data.results[0][index][y][0];
+                        // matches[match_c].push(data.results[0][index][y][0]);
                     }
                     else
-                    matches[match_c].push(null);
+                    match['first_score']=null;
                     if(typeof data.results[0][index][y][1] !== 'undefined')
                     {
-                        matches[match_c].push(data.results[0][index][y][1]);
-                        
+                        // matches[match_c].push(data.results[0][index][y][1]);
+                        match['second_score']=data.results[0][index][y][1];
                     }
                     else
-                    matches[match_c].push(null);
+                    // matches[match_c].push(null);
+                    match['second_score']=null;
                     
                 }
                 if (typeof data.results[0][index][y][0] !== 'undefined' && typeof data.results[0][index][y][1]!== 'undefined') {
-                    matches[match_c].push(teams[cnt]);
+                    // matches[match_c].push(teams[cnt]);
+                    match['first_team_id']=teams[cnt];
                     cnt++;
-                    matches[match_c].push(teams[cnt]);
+                    // matches[match_c].push(teams[cnt]);
+                    match['second_team_id']=teams[cnt];
                     
                 }
                 
@@ -301,20 +312,48 @@
                     if(data.results[0][index][y][0] > data.results[0][index][y][1])
                         teams= arrayRemove(teams,teams[y+1]);
                 }
-                match_c++;
+                matches.push(match);
             }
 
         }
-        console.log(matches);
-        var json = jQuery.toJSON(matches)
-        //var json = JSON.stringify(matches);
-        console.log('json:'+json)
+        for (let index = matches.length-1; index >= 0; index--) {
+            if( matches[index].first_score == null ||  matches[index].second_score == null)
+            {
+                matches.splice(matches.length - 1);
+            }
+        }
+        
+        // var json = jQuery.toJSON(matches);
+        @if($listing->collective)
+        var teams ={{ Js::from($teams)}}
+        @else
+        var teams ={{ Js::from($users)}}
+        @endif
+        matches.forEach(element => {
+            for (let index = 0; index < teams.length; index++) {
+                if (teams[index].name === element.first_team_id) {
+                    element.first_team_id = teams[index].id;
+                }
+                if (teams[index].name === element.second_team_id) {
+                    element.second_team_id = teams[index].id;
+                }
+            }
+            element['listing_id']= {{$listing->id}}
+            var json = JSON.stringify(element);
+            $('#saveOutput').text('POST '+json)
+            jQuery.ajax("/api/listings/game", {contentType: 'application/json',
+                                            dataType: 'json',
+                                            type: 'post',
+                                            data: json})
+        });
+        // var obj = JSON.parse(matches);
+        // var json = JSON.stringify(matches);
+        /* $('#saveOutput').text('POST '+userData+' '+json)
+       jQuery.ajax("/api/listing/"+{{$listing->id}}+"/game", {contentType: 'application/json',
+                                       dataType: 'json',
+                                       type: 'post',
+                                       data: json}) */
         // console.log(data);
-        $('#saveOutput').text('POST '+userData+' '+json)
-        jQuery.ajax("/api/listing/"+{{$listing->id}}+"/game", {contentType: 'application/json',
-                                        dataType: 'json',
-                                        type: 'post',
-                                        data: json})
         
     }
     $(function() {
@@ -332,13 +371,13 @@
         container.bracket({
             init: autoCompleteData,
             skipConsolationRound: true,
-            disableTeamEdit:true,
-            disableToolbar: true,
             teamWidth: 150,
             scoreWidth: 50,
             matchMargin: 50,
             roundMargin: 50,
-            save: saveFn,
+            // disableTeamEdit:true,
+            // disableToolbar: true,
+            //save: saveFn,
             // userData: "http://myapi"
         })
     
@@ -348,6 +387,60 @@
         })
     
 </script>
+@auth
+    @if(auth()->user()->id == $listing->user_id)
+        <script>
+            $(function() {
+            var container = $('#matches .demo')
+            container.bracket({
+                init: autoCompleteData,
+                skipConsolationRound: true,
+                teamWidth: 150,
+                scoreWidth: 50,
+                matchMargin: 50,
+                roundMargin: 50,
+                disableTeamEdit:true,
+                disableToolbar: true,
+                save: saveFn,
+                // userData: "http://myapi"
+            })
+            var data = container.bracket('data')
+            $('#dataOutput').text(jQuery.toJSON(data))
+            })
+        </script>
+    @else
+    <script>
+            $(function() {
+            var container = $('#matches .demo')
+                container.bracket({
+                    init: autoCompleteData,
+                    skipConsolationRound: true,
+                    teamWidth: 150,
+                    scoreWidth: 50,
+                    matchMargin: 50,
+                    roundMargin: 50,
+                })
+            })
+    </script>
+    @endif
+@endauth
+
+@guest
+        <script>
+            $(function() {
+            var container = $('#matches .demo')
+                container.bracket({
+                    init: autoCompleteData,
+                    skipConsolationRound: true,
+                    teamWidth: 150,
+                    scoreWidth: 50,
+                    matchMargin: 50,
+                    roundMargin: 50,
+                })
+            })
+        </script>
+@endguest
+
 </x-card>
     <x-card  class="mt-4 p-2 flex space-x-6">
         {{-- <span id="matchCallback"></span> --}}

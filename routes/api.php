@@ -25,7 +25,7 @@ use Illuminate\Support\Facades\Route;
     ]);
 });*/
 
-Route::post('/listing/{listing}/game', [GameController::class,'update']);
+Route::apiResource('/listings/game', GameController::class);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

@@ -79,7 +79,7 @@ Route::get('/registered_users', [UserController::class, 'index']);
 // show single players-registered users
 Route::get('/users/{user}', [UserController::class, 'show']);
 
-Route::put('/listings/{listing}/game', [GameController::class, 'update'])->middleware('auth');
+// Route::put('/listings/{listing}/game', [GameController::class, 'update'])->middleware('auth');
 // create form - team
 Route::get('/teams/create', [TeamController::class, 'create'])->middleware('auth');
 //create a new team - storing him

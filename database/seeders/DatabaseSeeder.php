@@ -33,43 +33,37 @@ class DatabaseSeeder extends Seeder
         Team::factory()->create([
             'name' => 'Football fans',
             'players_count' => "10",
-            'description' => "We are group of football fans.",
-            'owner_id' => "1",
+            'description' => "We are group of football fans."
         ]);
 
         Team::factory()->create([
             'name' => 'Tennis lovers',
             'players_count' => "2",
-            'description' => "We are group of tennis fans.",
-            'owner_id' => "2",
+            'description' => "We are group of tennis fans."
         ]);
 
         Team::factory()->create([
             'name' => 'Next Wimbledon Stars',
             'players_count' => "2",
-            'description' => "We are group of tennis fans.",
-            'owner_id' => "5",
+            'description' => "We are group of tennis fans."
         ]);
 
         Team::factory()->create([
             'name' => 'Football stars',
             'players_count' => "10",
-            'description' => "We are group of football fans.",
-            'owner_id' => "1",
+            'description' => "We are group of football fans."
         ]);
 
         Team::factory()->create([
             'name' => 'Sport lovers',
             'players_count' => "4",
-            'description' => "We are group of sport fans.",
-            'owner_id' => "1",
+            'description' => "We are group of sport fans."
         ]);
 
         Team::factory()->create([
             'name' => 'Team007',
             'players_count' => "4",
-            'description' => "We are group of sport fans.",
-            'owner_id' => "1",
+            'description' => "We are group of sport fans."
         ]);
 
         $user = User::factory()->create([

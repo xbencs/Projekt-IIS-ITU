@@ -25,8 +25,8 @@
                     <a href="/users/{{$team->owner_id}}''">{{$owner->name}}</a>
     
                 </div>
-
-                @if($team->owner_id == auth()->user()->id)
+                @auth
+                @if($team->owner_id == auth()->user()->id())
                 <a 
                         href="/teams/{{$team->id}}/manage"
                         class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80">
@@ -41,6 +41,7 @@
                         Edit Team Profile
                 </a>
                 @endif
+                @endauth
             </div>
         </div>
     </x-card>

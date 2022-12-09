@@ -19,7 +19,7 @@ class TeamController extends Controller
     {
         return view('teams.team', [
             'team' => $team,
-            'owner' => User::find($team->owner_id)->get(),
+            'owner' => User::where('id','=',$team->id)($team->owner_id)->first(),
             'users' => User::where('current_team_id','=',$team->id)->get()
         ]);
 

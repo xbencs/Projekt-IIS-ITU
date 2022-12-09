@@ -102,6 +102,12 @@ class DatabaseSeeder extends Seeder
             'is_admin' => false,
         ]);
 
+        User::factory()->create([
+            'name' => 'Admin', 
+            'email' => 'admin@admin.com',
+            'is_admin' => true,
+        ]);
+
         Listing::create([
             'user_id' => 1,
             'title' => 'Swimming tournament',

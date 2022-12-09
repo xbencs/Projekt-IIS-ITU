@@ -22,7 +22,7 @@
                 </h3>
                 <div class="text-lg space-y-6">
                     Created by:
-                    <a href="/users/{{$owner->id}}''">{{$owner->name}}</a>
+                    <a href="/users/{{$team->owner_id}}''">{{$owner->name}}</a>
     
                 </div>
 

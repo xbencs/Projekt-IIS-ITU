@@ -146,6 +146,12 @@
             /></a>
             <ul class="flex space-x-6 mr-6 text-lg">
 
+                @auth
+                <li>
+                    <span class="font-bold uppercase">Welcome {{auth()->user()->name}}</span>
+                </li>
+                @endauth
+
                 <li>
                     <a href="/registered_users" class="hover:text-laravel"
                         ><i class="fa-solid fas fa-user-alt"></i>
@@ -174,9 +180,6 @@
                   </div>
                   
                 @auth
-                <li>
-                    <span class="font-bold uppercase">Welcome {{auth()->user()->name}}</span>
-                </li>
                 <li>
                     <a href="/listings/manage" class="hover:text-laravel"
                         ><i class="fas fa-list"></i>

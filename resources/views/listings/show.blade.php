@@ -123,17 +123,7 @@
             </div>
         </div>
     </x-card>
-        
-    <x-card class="mt-4 p-2 flex space-x-6">
-    
-
-<x-card class="mt-4 p-2 flex space-x-6">
-
-    <form method="POST" action="/listings/{{$listing->id}}">
-    @csrf
-    @method('DELETE')
-    <button class="text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
-</x-card>
+            
 {{-- 
 @if($listing->user_id == auth()->id())
 <x-card>
@@ -451,8 +441,6 @@
             })
         </script>
 @endguest
-
-</x-card>
     <x-card  class="mt-4 p-2 flex space-x-6">
         {{-- <span id="matchCallback"></span> --}}
         <div  id="matches">

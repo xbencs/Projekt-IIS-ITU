@@ -70,6 +70,15 @@
                            </h3>
                    </div>
                @endif
+
+               <div class="mb-10">
+                    Approval:
+                    @if($listing->approved === 1)
+                        <span>&#10003;</span>  
+                    @else
+                        <i class="fa fa-close"></i>
+                    @endif
+                </div>
     
                     <a
                         href="mailto:{{$listing->email}}"
@@ -85,15 +94,6 @@
                         ><i class="fa-solid fa-globe"></i> Visit
                         Website</a
                     >
-    
-                    <div class="mb-10">
-                        Approval:
-                       @if($listing->approved === 1)
-                           <span>&#10003;</span>  
-                       @else
-                           <i class="fa fa-close"></i>
-                       @endif
-                   </div>
 
                    <div class="flex justify-between mb-10">
                         <div class="flex-1 basis-2/3">

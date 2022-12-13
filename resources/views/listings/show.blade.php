@@ -94,13 +94,26 @@
                            <i class="fa fa-close"></i>
                        @endif
                    </div>
+
+                   <div class="flex justify-between mb-10">
+                        <div class="flex-1 basis-2/3">
+
+                            <a 
+                            href="/listings/{{$listing->id}}/edit"
+                            class="block bg-black text-white mt-6 py-2 rounded-xl hover:opacity-80">
+                            <i class="fa-solid fas fa-pen"></i> 
+                            Edit approval
+                            </a>
+                        </div>
+                        <div  class="flex-1 basis-1/6">
+                            <form  method="POST" action="/listings/{{$listing->id}}">
+                            @csrf
+                            @method('DELETE')
+                            <button class=" mt-6 py-2 rounded-xl hover:opacity-80 text-red-500"><i class="fa-solid fa-trash"></i> Delete </button>
+                            </form>
+                        </div>
+                   </div>
     
-                   <a 
-                        href="/listings/{{$listing->id}}/edit"
-                        class="block bg-black text-white mt-6 py-2 rounded-xl hover:opacity-80">
-                        <i class="fa-solid fas fa-pen"></i> 
-                        Edit approval
-                    </a>
     
                     <a  href="/listings/{{$listing->id}}/participants"
                         class="block bg-black text-white mt-6 py-2 rounded-xl hover:opacity-80">

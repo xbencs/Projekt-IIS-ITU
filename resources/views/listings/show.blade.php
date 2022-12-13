@@ -23,33 +23,33 @@
                 <i class="fa-solid fa-location-dot"></i> {{$listing->location}}
                 <i class="far fa-calendar-alt"></i> {{$listing->date}}
 
-            </div>
     
     
             {{--button to enter tournament--}}
             @if ($listing->collective)
             <div >
                 <a href="/listings/{{$listing->id}}/request_join"
-                    class="mt-6 py-4">
-                    <i class="fa-solid fa-code-merge"></i> 
+                    class="block bg-laravel text-white rounded-xl hover:opacity-80">
+                    <i class="fa-solid fa-code-merge font-bold"></i> 
                     Join Tournament as Team
                 </a>
             </div>
             @else 
                 <div >
                     <a href="/listings/{{$listing->id}}/request_join"
-                      class="mt-6 py-4">
+                        class="block bg-laravel text-white rounded-xl hover:opacity-80">
                       <i class="fa-solid fa-code-merge"></i> 
                       Join Tournament as Player
                     </a>
                 </div>
             @endif
+            </div>
     
     
-            <div class="border border-gray-200 w-full mb-6"></div>
+            <div class="border border-gray-200 w-full mb-6 font-bold"></div>
             
             <div>
-                <h3 class="text-3xl font-bold mb-4">
+                <h3 class="text-3xl mb-4">
                     Tournament Description
                 </h3>
                 <div class="text-lg space-y-6">

@@ -1,4 +1,4 @@
-
+{{--Created by Sebastián Bencsík--}}
 <x-layout>
     <x-card
         class="rounded max-w-lg mx-auto mt-24">

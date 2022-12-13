@@ -1,4 +1,4 @@
-
+{{--Created by Sebastián Bencsík--}}
 @props(['team'])
 
 <!-- Item 1 --> <!--new component-->
@@ -8,7 +8,6 @@
         src="{{$team->logo ? asset('storage/' . $team->logo) : asset('/image/no-image.png')}}" alt="" />
         <div>
             <h3 class="text-2xl">
-                {{--<div class="text-xl font-bold mb-4">{{$user->name}}</div>--}}
                 <a href="./teams/{{$team->id}}''">{{$team->name}}</a>
                 
             </h3>

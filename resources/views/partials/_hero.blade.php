@@ -1,5 +1,4 @@
-
-<!-- Hero -->
+{{--Created by Jasmína Csalova--}}
 
 <section
             class="relative h-72 bg-laravel flex flex-col justify-center align-center text-center space-y-4 mb-4"

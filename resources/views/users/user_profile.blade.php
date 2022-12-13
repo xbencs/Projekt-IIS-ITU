@@ -1,3 +1,4 @@
+{{--Created by Jasmína Csalová--}}
 <x-layout>        
     <a href="/" class="inline-block text-black ml-4 mb-4"
     ><i class="fa-solid fa-arrow-left"></i> Back
@@ -25,8 +26,7 @@
                         ><i class="fa-solid fa-envelope"></i>
                         Contact Player
                     </a>
-
-                    
+       
                     <a 
                         href="/users/{{$user->id}}/edit"
                         class="block bg-laravel text-white mt-6 py-2 rounded-xl hover:opacity-80">

@@ -1,5 +1,5 @@
 <?php
-//TODO:
+//Created by Jasmína Csalová and Sebastián Bencsík
 
 use App\Models\Listing;
 use Illuminate\Http\Request;

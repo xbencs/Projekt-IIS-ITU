@@ -9,7 +9,7 @@
         <div
             class="flex flex-col items-center justify-center text-center"
         >
-        <img class="w-24" src="{{asset('image/user.png')}}" alt="" class="logo"/>
+        <img class="w-24" src="{{asset($user->avatar)}}" alt="" class="logo"style="border-radius:50%"/>
     
             <h3 class="text-2xl mb-2">{{$user->name}}</h3>
             <div class="text-xl font-bold mb-4">{{$user->email}}</div>

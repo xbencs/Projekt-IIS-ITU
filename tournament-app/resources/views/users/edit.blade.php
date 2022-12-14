@@ -40,6 +40,21 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
+            <div class="mb-6">
+                <label for="avatar" class="inline-block text-lg mb-2"
+                    >Your avatar</label
+                >
+                <input
+                    type="file"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="avatar"
+                />
+                @error('avatar')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+            
+            
 
             @if( $users->is_admin === 1 )
                 <div class="mb-6">

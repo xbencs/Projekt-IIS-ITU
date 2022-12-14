@@ -22,7 +22,7 @@
 <x-card>
 
     <div class="flex">
-        <img class="w-24" src="{{asset('image/user.png')}}" alt="" class="logo"/>
+    <img class="w-24" src="{{asset($user->avatar)}}" alt="" class="logo"style="border-radius:50%" />
         <div>
             <h3 class="text-2xl">
                 {{--<div class="text-xl font-bold mb-4">{{$user->name}}</div>--}}

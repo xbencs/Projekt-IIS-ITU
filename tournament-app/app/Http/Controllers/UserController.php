@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use Illuminate\Http\UploadedFile;
 
 class UserController extends Controller
 {
@@ -20,6 +21,7 @@ class UserController extends Controller
             'email' => ['required', 'email', Rule::unique('users', 'email')],
             'password' => 'required|confirmed|min:6',
             'is_admin' => '',
+            'avatar'=>['sometimes', 'image','mimes:jpg,jpeg,bmp,svg,png', 'max:5000'],
         ]);
 
         if($request['is_admin'] === "no"){
@@ -28,9 +30,18 @@ class UserController extends Controller
             $formFields['is_admin'] = 0;
 
         }
+        $AvatarName="user.png";
+        if(request()->has('avatar')){
+            $AvatarUpload = request()->file('avatar');
+            $AvatarName = time() . '.' . $AvatarUpload->getClientOriginalExtension();
+            $avatarpath = public_path('/image/');
+            $AvatarUpload->move($avatarpath,$AvatarName);
+            $formFields['avatar'] = '/image/' .  $AvatarName;
+        }
 
         // hash password
         $formFields['password'] = bcrypt($formFields['password']);
+        $formFields['avatar'] = '/image/' .  $AvatarName;
         //create user
         $user = User::create($formFields);
         //login
@@ -86,8 +97,16 @@ class UserController extends Controller
         $formFields = $request->validate([
             'name' => ['required', 'min:3'],
             'email' => ['required', 'email'],
+            'avatar'=>['sometimes', 'image','mimes:jpg,jpeg,bmp,svg,png', 'max:5000'],
         ]);
-
+        $AvatarName="user.png";
+        if(request()->has('avatar')){
+            $AvatarUpload = request()->file('avatar');
+            $AvatarName = time() . '.' . $AvatarUpload->getClientOriginalExtension();
+            $avatarpath = public_path('/image/');
+            $AvatarUpload->move($avatarpath,$AvatarName);
+            $formFields['avatar'] = '/image/' .  $AvatarName;
+        }
 
         $user->update($formFields);
 

@@ -1,5 +1,14 @@
-# Studentské turnaje
+<div align="center">
+  <a href="https://github.com/xbencs/Projekt-IIS-ITU">
+    <img src="public/image/android-chrome-512x512.png" alt="Logo" width="80" height="80">
+  </a>
 
+  <h3 align="center">Studentské turnaje</h3>
+
+  <p align="center">
+    <br />
+    <a href="https://iis-tournament.herokuapp.com/">View Demo</a>
+</div>
 
 ### Installation
 

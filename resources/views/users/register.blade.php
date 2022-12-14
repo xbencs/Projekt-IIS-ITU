@@ -1,4 +1,5 @@
 {{--Created by Jasmína Csalová--}}
+{{--One part reated by Filip Lorenc--}}
 <x-layout>
     <x-card class="p-10 rounded max-w-lg mx-auto mt-24">
         <header class="text-center">
@@ -8,7 +9,7 @@
             <p class="mb-4">Create an account to schedule a tournament</p>
         </header>
 
-        <form method="POST" action="/users">
+        <form method="POST" action="/users" enctype="multipart/form-data">
             @csrf
             <div class="mb-6">
                 <label for="name" class="inline-block text-lg mb-2">
@@ -75,7 +76,21 @@
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
-
+            <!-- Author Filip Lorenc-->
+            <div class="mb-6">
+                <label for="avatar" class="inline-block text-lg mb-2"
+                    >Your avatar</label
+                >
+                <input
+                    type="file"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="avatar"
+                />
+                @error('avatar')
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                @enderror
+            </div>
+            <!-- end-->
             <div class="mb-6">
                 <legend>Do you want to be an administrator?
                 <input unchecked name="is_admin" type="checkbox" value="no"> </legend>

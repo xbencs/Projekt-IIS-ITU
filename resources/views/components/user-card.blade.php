@@ -1,10 +1,13 @@
 {{--Created by Jasmína Csalova--}}
+{{--One part created by Filip Lorenc--}}
 @props(['user'])
 
 <!-- Item 1 --> <!--new component-->
 <x-card>
     <div class="flex">
-        <img class="w-24" src="{{asset('image/user.png')}}" alt="" class="logo"/>
+    <!-- Author Filip Lorenc-->
+    <img class="w-24" src="{{asset($user->avatar)}}" alt="" class="logo"style="border-radius:50%" />
+    <!--end-->
         <div>
             <h3 class="text-2xl">
                 {{--<div class="text-xl font-bold mb-4">{{$user->name}}</div>--}}

@@ -1,4 +1,5 @@
 {{--Created by Sebastián Bencsík--}}
+{{--One part created by Filip Lorenc--}}
 <x-layout>
     <x-card
         class="rounded max-w-lg mx-auto mt-24">
@@ -36,29 +37,31 @@
                 >
                     *Team Description
                 </label>
-                <input
+                <textarea
                     class="border border-gray-200 rounded p-2 w-full"
                     name="description"
                     value="{{$team->description}}"
-                ></input>
+                ></textarea>
                 @error('description')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
 
-            <div class="mb-6">
-                <label for="logo" class="inline-block text-lg mb-2">
-                  Team Logo
-                </label>
-                <input type="file" class="border border-gray-200 rounded p-2 w-full" name="logo" />
-        
-                <img class="w-48 mr-6 mb-6"
-                  src="{{$team->logo ? asset('storage/' . $team->logo) : asset('/image/no-image.png')}}" alt="" />
-        
+                <!-- Author Filip Lorenc-->
+                <div class="mb-6">
+                <label for="avatar" class="inline-block text-lg mb-2"
+                    >Your logo</label
+                >
+                <input
+                    type="file"
+                    class="border border-gray-200 rounded p-2 w-full"
+                    name="avatar"
+                />
                 @error('logo')
-                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
+            <!-- end-->
 
             <div class="mb-6">
                 <button

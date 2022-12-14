@@ -1,5 +1,4 @@
 {{--Created by Sebastián Bencsík--}}
-{{--One part created by Filip Lorenc--}}
 <x-layout>
     <x-card class="p-10 rounded max-w-lg mx-auto mt-24">
         <header class="text-center">

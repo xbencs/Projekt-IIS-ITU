@@ -17,11 +17,6 @@
                     Find or Schedule tournaments & Join a game
                 </p>
                 <div>
-                <a
-                        href="/register"
-                        class="inline-block border-2 border-white text-white py-2 px-4 rounded-xl uppercase mt-2 hover:text-black hover:border-black"
-                        >Sign Up to Schedule a Tournament</a
-                    >
                     @if (auth()->user() == NULL)
                         <a
                             href="/register"

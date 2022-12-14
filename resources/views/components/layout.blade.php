@@ -81,13 +81,14 @@
                     case 'entry-default-win':
                     case 'entry-complete':
                     var fields = data.split(':')
-                    // if (fields.length <= 2)
-                    //     container.append('<i>INVALID</i>')
-                    // else
+                    if (fields.length >= 3)
+                        container.append('<i>INVALID</i>')
+                    else
                     container.append(''+fields[0]).append(fields[1])
                     return;
                 }
             }
+            
 
             
             

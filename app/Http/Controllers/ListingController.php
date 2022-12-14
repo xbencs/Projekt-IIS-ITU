@@ -31,7 +31,7 @@ class ListingController extends Controller
         INNER JOIN teams s on g.second_team_id = s.id 
         where g.listing_id = ? ;', [$listing->id]);
          */
-        $results = DB::select('select first_score, second_score from games where listing_id = ?', [$listing->id]);
+        $results = DB::select('select first_score, second_score, first_team_id, second_team_id from games where listing_id = ?', [$listing->id]);
         // $i =0;
         // foreach($games as $game){
         //     $teams[$i][0] = $game[3];

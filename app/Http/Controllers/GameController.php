@@ -14,6 +14,10 @@ class GameController extends Controller
         return Game::all();
     }
 
+    public function show($id){
+        return Game::where('listing_id','=',$id)->get();
+    }
+
     public function store(GameRequest $request)
     {
         $game = Game::where([['first_team_id','=',$request->first_team_id],['second_team_id','=', $request->second_team_id],['listing_id','=', $request->listing_id]])->first();

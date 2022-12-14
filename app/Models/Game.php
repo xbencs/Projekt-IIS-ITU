@@ -17,7 +17,7 @@ class Game extends Model
         'listing_id' => 'required'
     ];
 
-    protected $visible = ['first_score', 'second_score'];
+    protected $visible = ['first_team_id', 'second_team_id', 'first_score', 'second_score'];
 
 
     /**

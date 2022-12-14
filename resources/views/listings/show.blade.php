@@ -179,15 +179,47 @@
  --}}
 {{-- {{  $games }} --}}
 <script type="text/javascript">
+    // async functioni to get results
+    /* async function getResults() {
+        let obj;
+
+        const res = await fetch('http://127.0.0.1:8000/api/listings/game/{{$listing->id}}')
+
+        obj = await res.json();
+
+        return obj;
+        } */
+    
     @if($listing->collective)
     var data ={{ Js::from($teams)}}
     @else
     var data ={{ Js::from($users)}}
     @endif
-    console.log(data);
+    var data_results ={{ Js::from($results)}}
+    console.log(data_results);
     // console.log(data[0].name);
-    
+    // autoComplete ------------------------
+    var acData = new Array;
     for (let index = 0; index < data.length; index++) {
+        acData.push(data[index].name);
+    }
+
+
+    /* var results;
+
+    fetch('http://127.0.0.1:8000/api/listings/game/{{$listing->id}}')
+    .then(res => res.json())
+    .then(data => {
+        results = data;
+    })
+    .then(() => {
+        console.log(results);
+    });
+
+    console.log(results); */
+    // var result = await getResults(); 
+    // console.log(result.PromiseResult);
+    /* for (let index = 0; index < data.length; index++) {
         var match = new Array;
         if(data[index]!= null)
             match.push(data[index].name);
@@ -197,10 +229,25 @@
         else
             match.push(null);
         autoCompleteData.teams.push(match);
-    }
-    /* for (let index = 0; index < {{$listing->max_players/2}}; index++) {
-        autoCompleteData.teams.push([data[index].first,data[index].second]);
     } */
+    console.log(data);
+    data_results.forEach(game => {
+        var match = new Array;
+        for (let index = 0; index < data.length; index++) {
+            if(data[index].id == game.first_team_id){
+                match.push(data[index].name);
+                break;
+            }
+        }
+        for (let index = 0; index < data.length; index++) {
+            if(data[index].id == game.second_team_id){
+                match.push(data[index].name);
+                break;
+            }
+        }
+        console.log(match);
+        autoCompleteData.teams.push(match);
+    });
 
     var tmp = {{$listing->max_players}};
     var max_rounds = 1;
@@ -209,7 +256,8 @@
         max_rounds +=1;
     }
     var max_players= {{$listing->max_players}};
-    var data_results ={{ Js::from($results)}}
+    
+    
     
     var id=0;
     for (let roundCount = 1; roundCount < max_rounds; roundCount++) {
@@ -369,35 +417,35 @@
         // console.log(data);
         
     }
-    $(function() {
-        /* $('#matches .demo').bracket({
-            init: autoCompleteData,
-            skipConsolationRound: true,
-            teamWidth: 150,
-            scoreWidth: 50,
-            matchMargin: 50,
-            roundMargin: 50
+    // $(function() {
+    //     /* $('#matches .demo').bracket({
+    //         init: autoCompleteData,
+    //         skipConsolationRound: true,
+    //         teamWidth: 150,
+    //         scoreWidth: 50,
+    //         matchMargin: 50,
+    //         roundMargin: 50
 
-            save: saveFn,
-        }) */
-        var container = $('#matches .demo')
-        container.bracket({
-            init: autoCompleteData,
-            skipConsolationRound: true,
-            teamWidth: 150,
-            scoreWidth: 50,
-            matchMargin: 50,
-            roundMargin: 50,
-            // disableTeamEdit:true,
-            // disableToolbar: true,
-            //save: saveFn,
-            // userData: "http://myapi"
-        })
+    //         save: saveFn,
+    //     }) */
+    //     var container = $('#matches .demo')
+    //     container.bracket({
+    //         init: autoCompleteData,
+    //         skipConsolationRound: true,
+    //         teamWidth: 150,
+    //         scoreWidth: 50,
+    //         matchMargin: 50,
+    //         roundMargin: 50,
+    //         // disableTeamEdit:true,
+    //         // disableToolbar: true,
+    //         //save: saveFn,
+    //         // userData: "http://myapi"
+    //     })
     
-        /* You can also inquiry the current data */
-        var data = container.bracket('data')
-        $('#dataOutput').text(jQuery.toJSON(data))
-        })
+    //     /* You can also inquiry the current data */
+    //     var data = container.bracket('data')
+    //     $('#dataOutput').text(jQuery.toJSON(data))
+    //     })
     
 </script>
 @auth
@@ -412,13 +460,10 @@
                 scoreWidth: 50,
                 matchMargin: 50,
                 roundMargin: 50,
-                disableTeamEdit:true,
-                disableToolbar: true,
                 save: saveFn,
+                decorator: {    edit: acEditFn,
+                                render: acRenderFn}})
                 // userData: "http://myapi"
-            })
-            var data = container.bracket('data')
-            $('#dataOutput').text(jQuery.toJSON(data))
             })
         </script>
     @else
@@ -432,6 +477,9 @@
                     scoreWidth: 50,
                     matchMargin: 50,
                     roundMargin: 50,
+                    save: saveFn,
+                    decorator: {    edit: acEditFn,
+                                    render: acRenderFn}
                 })
             })
     </script>
@@ -449,6 +497,9 @@
                     scoreWidth: 50,
                     matchMargin: 50,
                     roundMargin: 50,
+                    save: saveFn,
+                    decorator: {    edit: acEditFn,
+                                    render: acRenderFn}
                 })
             })
         </script>

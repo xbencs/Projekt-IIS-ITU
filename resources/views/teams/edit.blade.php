@@ -36,11 +36,11 @@
                 >
                     *Team Description
                 </label>
-                <input
+                <textarea
                     class="border border-gray-200 rounded p-2 w-full"
                     name="description"
                     value="{{$team->description}}"
-                ></input>
+                ></textarea>
                 @error('description')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
@@ -54,11 +54,11 @@
         
                 <img class="w-48 mr-6 mb-6"
                   src="{{$team->logo ? asset('storage/' . $team->logo) : asset('/image/no-image.png')}}" alt="" />
-        
                 @error('logo')
-                <p class="text-red-500 text-xs mt-1">{{$message}}</p>
+                    <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror
             </div>
+            <!-- end-->
 
             <div class="mb-6">
                 <button

@@ -22,16 +22,26 @@
                 <i class="far fa-calendar-alt"></i> {{$listing->date}}
 
     
-    
+            @auth
             {{--button to enter tournament--}}
             @if ($listing->collective)
-            <div >
-                <a href="/listings/{{$listing->id}}/request_join"
-                    class="block bg-laravel text-white rounded-xl hover:opacity-80">
-                    <i class="fa-solid fa-code-merge font-bold"></i> 
-                    Join Tournament as Team
-                </a>
-            </div>
+                @if(auth()->user()->current_team_id != NULL)
+                    <div >
+                        <a href="/listings/{{$listing->id}}/request_join"
+                            class="block bg-laravel text-white rounded-xl hover:opacity-80">
+                            <i class="fa-solid fa-code-merge font-bold"></i> 
+                            Join Tournament as Team
+                        </a>
+                    </div>
+                @else
+                    <div >
+                        <a href="/registered_teams"
+                            class="block bg-laravel text-white rounded-xl hover:opacity-80">
+                            <i class="fa-solid fa-code-merge font-bold"></i> 
+                            Create or join a team to participate
+                        </a>
+                    </div>
+                @endif
             @else 
                 <div >
                     <a href="/listings/{{$listing->id}}/request_join"
@@ -41,6 +51,29 @@
                     </a>
                 </div>
             @endif
+            @endauth
+
+            {{--button to enter tournament--}}
+            @guest
+            @if ($listing->collective)
+                <div >
+                    <a href="/login"
+                        class="block bg-laravel text-white rounded-xl hover:opacity-80">
+                        <i class="fa-solid fa-code-merge font-bold"></i> 
+                        Join Tournament as Team
+                    </a>
+                </div>
+                
+            @else 
+                <div >
+                    <a href="/login"
+                        class="block bg-laravel text-white rounded-xl hover:opacity-80">
+                      <i class="fa-solid fa-code-merge"></i> 
+                      Join Tournament as Player
+                    </a>
+                </div>
+            @endif
+            @endguest
             </div>
     
     
@@ -389,6 +422,7 @@
             }
             element['listing_id']= {{$listing->id}}
             var json = JSON.stringify(element);
+            console.log(element);
             $('#saveOutput').text('POST '+json)
             jQuery.ajax("/api/listings/game", {contentType: 'application/json',
                                             dataType: 'json',

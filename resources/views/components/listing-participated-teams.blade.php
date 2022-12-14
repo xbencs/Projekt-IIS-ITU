@@ -42,7 +42,7 @@
                 @endif
             @else
             Change approvement
-
+            @auth
             <!-- Rounded switch -->
             @if(auth()->user()->id === $listing->user_id)
             <td>
@@ -53,6 +53,7 @@
                 key($team->id))
             </td>
             @endif
+            @endauth
         @endif
         
         </div> 

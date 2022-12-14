@@ -41,7 +41,7 @@
                 @endif
             @else
             Change approvement
-
+            @auth
             <!-- Rounded switch -->
             @if(auth()->user()->id === $listing->user_id)
             <td>
@@ -52,6 +52,7 @@
                 key($user->id))
             </td>
             @endif
+            @endauth
         @endif
         
         </div> 
@@ -61,4 +62,3 @@
 </x-card>
 @livewireScripts
 </body>
-

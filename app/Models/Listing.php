@@ -1,5 +1,5 @@
 <?php
-//TODO:
+//Created by Jasmína Csalová
 
 namespace App\Models;
 

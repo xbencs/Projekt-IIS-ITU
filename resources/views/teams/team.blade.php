@@ -1,3 +1,4 @@
+{{--Created by Sebastián Bencsík--}}
 <x-layout>
     
     {{-- @include('partials._search')

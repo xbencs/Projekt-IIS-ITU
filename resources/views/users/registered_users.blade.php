@@ -1,3 +1,4 @@
+{{--Created by Jasmína Csalová--}}
 <x-layout>
     
     @include('partials._search')

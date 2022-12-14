@@ -1,4 +1,5 @@
 <?php
+//Created by Jasmína Csalová
 
 namespace App\Http\Controllers;
 
@@ -68,7 +69,7 @@ class ListingController extends Controller
             'location' => 'required',
             'email' => ['required', 'email'],
             'sport' => '',
-            'conditions' => 'required',
+            'conditions' => '',
             'max_players' => 'required',
             'descriptions' => 'required',
             'prize' => '',
@@ -115,7 +116,7 @@ class ListingController extends Controller
                 'location' => 'required',
                 'email' => ['required', 'email'],
                 'sport' => '',
-                'conditions' => 'required',
+                'conditions' => '',
                 'max_players' => 'required',
                 'descriptions' => 'required',
                 'prize' => '',

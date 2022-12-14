@@ -1,4 +1,4 @@
-
+{{--Created by Jasmína Csalova--}}
 @props(['user'])
 
 <!-- Item 1 --> <!--new component-->

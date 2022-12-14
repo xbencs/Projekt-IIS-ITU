@@ -1,9 +1,8 @@
 <?php
 //Created by Sebastián Bencsík
 
-
 namespace App\Http\Controllers;
-use Illuminate\Http\UploadedFile;
+
 use App\Models\User;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -40,9 +39,12 @@ class TeamController extends Controller
             'name' => 'required',
             'description' => 'required',
         ]);
+
         if($request->hasFile('logo')){
             $formFields['logo'] = request()->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
-                                                                                    // after new tournament with logo is created run: php artisan sto
+                                                                                    // after new tournament with logo is created run: php artisan storage:link
+
+        }
 
         $formFields['owner_id'] = auth()->id();
 
@@ -74,7 +76,6 @@ class TeamController extends Controller
         if($request->hasFile('logo')){
             $formFields['logo'] = $request->file('logo')->store('logos', 'public'); 
         }
-
 
         $team->update($formFields);
 

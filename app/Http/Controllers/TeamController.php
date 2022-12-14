@@ -79,7 +79,7 @@ class TeamController extends Controller
 
         $formFields = $request->validate([
             'name' => 'required',
-            'description' => 'required'
+            'description' => 'required',
             'logo'=>['sometimes', 'image','mimes:jpg,jpeg,bmp,svg,png', 'max:5000'],
         ]);
 

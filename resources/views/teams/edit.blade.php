@@ -36,11 +36,11 @@
                 >
                     *Team Description
                 </label>
-                <textarea
+                <input
                     class="border border-gray-200 rounded p-2 w-full"
                     name="description"
                     value="{{$team->description}}"
-                ></textarea>
+                ></input>
                 @error('description')
                     <p class="text-red-500 text-xs mt-1">{{$message}}</p>
                 @enderror

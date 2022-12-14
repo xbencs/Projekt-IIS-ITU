@@ -31,7 +31,7 @@
             </h3>
 
             {{-- <div class="text-lg mt-4"> <i class="fa fa-envelope"></i> {{$tea->email}}</div> --}}
-            
+            @auth
             @if(auth()->user()->id != $listing->user_id)
                 @if($team->participate_listings()->where('listing_id', $listing->id)->first()->pivot->is_approved === 1)
                     Approved by tournament creator
@@ -42,7 +42,7 @@
                 @endif
             @else
             Change approvement
-            @auth
+            
             <!-- Rounded switch -->
             @if(auth()->user()->id === $listing->user_id)
             <td>

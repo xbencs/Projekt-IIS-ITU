@@ -17,7 +17,7 @@
    ```
 5. Create tables in database
    ```sh
-   php artisane migrate
+   php artisan migrate
    ```
 6. For testing start server on local machine
    ```sh

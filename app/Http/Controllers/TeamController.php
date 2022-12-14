@@ -1,6 +1,7 @@
 <?php
 //Created by Sebastián Bencsík
 
+
 namespace App\Http\Controllers;
 use Illuminate\Http\UploadedFile;
 use App\Models\User;
@@ -39,10 +40,9 @@ class TeamController extends Controller
             'name' => 'required',
             'description' => 'required',
         ]);
-
         if($request->hasFile('logo')){
             $formFields['logo'] = request()->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
-                                                                                    // after new tournament with logo is created run: php artisan storage:link
+                                                                                    // after new tournament with logo is created run: php artisan sto
 
         $formFields['owner_id'] = auth()->id();
 
@@ -69,19 +69,11 @@ class TeamController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
             'description' => 'required'
-            'logo'=>['sometimes', 'image','mimes:jpg,jpeg,bmp,svg,png', 'max:5000'],
         ]);
 
-       //Aurhor Filip Lorenc
-       $logoname="user.png";
-       if(request()->has('avatar')){
-           $logoUpload = request()->file('avatar');
-           $logoName = time() . '.' . $AvatarUpload->getClientOriginalExtension();
-           $logoPath = public_path('/image/');
-           $LogoUpload->move($logoPath,$logoName);
-           $formFields['logo'] = '/image/' .  $logoName;
-       }
-       //end
+        if($request->hasFile('logo')){
+            $formFields['logo'] = $request->file('logo')->store('logos', 'public'); 
+        }
 
 
         $team->update($formFields);

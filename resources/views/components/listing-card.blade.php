@@ -1,4 +1,4 @@
-
+{{--Created by Jasmína Csalova--}}
 @props(['listing'])
 
 <!-- Item 1 --> <!--new component-->

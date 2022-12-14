@@ -1,3 +1,4 @@
+{{--Created by Sebastián Bencsík--}}
 <x-layout>
     <x-card class p-10>
         <header>

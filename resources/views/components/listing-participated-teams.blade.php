@@ -1,4 +1,4 @@
-
+{{--Created by Jasmína Csalova--}}
 @props(['team', 'listing'])
 <head>
     {{-- <link rel="stylesheet" href="/css/rounded_toggle_switch.css" /> --}}

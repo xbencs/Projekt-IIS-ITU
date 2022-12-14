@@ -1,8 +1,9 @@
 <?php
 //Created by Sebastián Bencsík
+// Team logo part created by FIlip Lorenc
 
 namespace App\Http\Controllers;
-
+use Illuminate\Http\UploadedFile;
 use App\Models\User;
 use App\Models\Team;
 use Illuminate\Http\Request;
@@ -38,13 +39,21 @@ class TeamController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
             'description' => 'required',
+            'logo'=>['sometimes', 'image','mimes:jpg,jpeg,bmp,svg,png', 'max:5000'],
         ]);
 
-        if($request->hasFile('logo')){
-            $formFields['logo'] = request()->file('logo')->store('logos', 'public'); // this will make file named logos with all the uploaded logos(storage/app/public/logos)
-                                                                                    // after new tournament with logo is created run: php artisan storage:link
-
+        //Aurhor Filip Lorenc
+        $logoname="user.png";
+        if(request()->has('avatar')){
+            $logoUpload = request()->file('avatar');
+            $logoName = time() . '.' . $AvatarUpload->getClientOriginalExtension();
+            $logoPath = public_path('/image/');
+            $LogoUpload->move($logoPath,$logoName);
+            $formFields['logo'] = '/image/' .  $logoName;
         }
+        //cesta k avatar file
+        $formFields['avatar'] = '/image/' .  $logoName;
+        //end
 
         $formFields['owner_id'] = auth()->id();
 
@@ -71,11 +80,20 @@ class TeamController extends Controller
         $formFields = $request->validate([
             'name' => 'required',
             'description' => 'required'
+            'logo'=>['sometimes', 'image','mimes:jpg,jpeg,bmp,svg,png', 'max:5000'],
         ]);
 
-        if($request->hasFile('logo')){
-            $formFields['logo'] = $request->file('logo')->store('logos', 'public'); 
-        }
+       //Aurhor Filip Lorenc
+       $logoname="user.png";
+       if(request()->has('avatar')){
+           $logoUpload = request()->file('avatar');
+           $logoName = time() . '.' . $AvatarUpload->getClientOriginalExtension();
+           $logoPath = public_path('/image/');
+           $LogoUpload->move($logoPath,$logoName);
+           $formFields['logo'] = '/image/' .  $logoName;
+       }
+       //end
+
 
         $team->update($formFields);
 

@@ -1,5 +1,4 @@
 {{--Created by Sebastián Bencsík--}}
-{{--One part reated by Filip Lorenc--}}
 <x-layout>
     
     {{-- @include('partials._search')
@@ -10,10 +9,9 @@
         <div
             class="flex flex-col items-center justify-center text-center"
         >
-        <!-- Author Filip Lorenc-->
-        <img class="w-24" src="{{asset($team->logo)}}" alt="" class="logo"style="border-radius:50%"/>
-        <!-- end-->
-
+        <img class="w-48 mr-6 mb-6"
+          {{--src="{{$team->logo ? asset('storage' . $team->logo) : asset('/image/no-image.png')}}" alt="" />--}}
+          src="{{$team->logo ? asset('storage/' . $team->logo) : asset('/image/no-image.png')}}" alt="" />
     
             <h3 class="text-2xl mb-2">{{$team->name}}</h3>
                 

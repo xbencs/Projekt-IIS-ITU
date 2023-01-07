@@ -43,13 +43,13 @@
             </div>
             <div class="mb-6">
                 <label for="logo" class="inline-block text-lg mb-2">
-                  Team Logo
+                  User Logo
                 </label>
                 <input type="file" class="border border-gray-200 rounded p-2 w-full" name="logo" />
         
                 <img class="w-48 mr-6 mb-6"
-                  src="{{$team->logo ? asset('storage/' . $team->logo) : asset('/image/no-image.png')}}" alt="" />
-            @if( $users->is_admin === 1 )
+                  src="{{auth()->user()->logo ? asset('storage/' . auth()->user()->logo) : asset('/image/user.png')}}" alt="" />
+            @if( auth()->user()->is_admin === 1 )
                 <div class="mb-6">
                     Administrator
                     <span>&#10003;</span>

@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\TeamController;
+use App\Http\Livewire\Announcements;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,9 +20,6 @@ use App\Http\Controllers\TeamController;
 |
 */
 
-// all listings
-Route::get('/', [ListingController::class, 'index']);
-
 // Common Resource Routes:
 // index - Show all listings
 // show - Show single listing
@@ -30,6 +28,9 @@ Route::get('/', [ListingController::class, 'index']);
 // edit - Show form to edit listing
 // update - Update listing
 // destroy - Delete listing  
+
+// all listings
+Route::get('/', [ListingController::class, 'index']);
 
 // show create form - listing
 Route::get('/listings/create', [ListingController::class, 'create'])->middleware('auth');
@@ -79,7 +80,6 @@ Route::get('/registered_users', [UserController::class, 'index']);
 // show single players-registered users
 Route::get('/users/{user}', [UserController::class, 'show']);
 
-// Route::put('/listings/{listing}/game', [GameController::class, 'update'])->middleware('auth');
 // create form - team
 Route::get('/teams/create', [TeamController::class, 'create'])->middleware('auth');
 //create a new team - storing him
@@ -114,6 +114,9 @@ Route::get('/listings/{listing}/participants', [ListingController::class, 'parti
 
 //showing my schedule
 Route::get('/schedule', [UserController::class, 'schedule'])->middleware('auth');
+
+// show announcements
+Route::get('/welcome', [Announcements::class, 'index'])->middleware('auth');
 
 
 

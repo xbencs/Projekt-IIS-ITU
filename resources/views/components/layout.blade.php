@@ -153,8 +153,8 @@
                 @endauth
                 <li>
                     <a href="/registered_users" class="hover:text-laravel"
-                        ><i class="fa-solid fas fa-user-alt"></i>
-                        Players</a
+                        ><p class="text-dark"><i class="fa-solid fas fa-user-alt"></i>
+                        Players</p></a
                     >
                 </li>
                 {{-- <li>
@@ -182,24 +182,33 @@
                 
                 <li>
                     <a href="/listings/manage" class="hover:text-laravel"
-                        ><i class="fas fa-list"></i>
-                        Manage My Tournaments</a
+                        ><p class="text-dark"><i class="fas fa-list"></i>
+                        Manage My Tournaments</p></a
                     >
                 </li>
 
                 <li>
                     <a href="/schedule" class="hover:text-laravel"
-                        ><i class="fas fa-calendar"></i>
-                        My Schedule</a
+                        ><p class="text-dark"><i class="fas fa-calendar"></i>
+                        My Schedule</p></a
                     >
                 </li>
 
                 <li>
                 <a href="/users/{{auth()->user()->id}}/edit" class="hover:text-laravel"
-                        ><i class="fas fa-user-edit"></i>
-                        Edit profile</a
+                        ><p class="text-dark"><i class="fas fa-user-edit"></i>
+                        Edit profile</p></a
                     >
                 </li>
+
+                <div class="dropdown" class="hover:text-laravel" style="float:right;">
+                    <a href="/welcome"><p class="text-dark"><i class="fas fa-bell"></i>
+                        Announcements</p>
+                    </a
+                >
+                </div>
+    
+            </li>
 
                 <li>
                     <form class="inline" method="POST" action="/logout">
@@ -223,19 +232,6 @@
                     >
                 </li>
                 @endauth
-
-
-               {{-- TODO: WHY IT IS NOT WORKING??????? DROPDOWN MENU
-                <div id="dropdown">
-                    <button class="fas fa-volleyball-ball"> More</button>
-                    <div>
-                        <ol>
-                            <span><li href='*'>Players</li></span>
-                            <span><li href='*'>Teams</li></span>
-                            <span><li href='*'>Tournamnets</li></span>
-                        </ol>
-                    </div>
-                </div>  --}}
                 
 
             </ul>

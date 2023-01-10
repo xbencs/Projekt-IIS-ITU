@@ -200,6 +200,13 @@
                         Edit profile</p></a
                     >
                 </li>
+                <div class="dropdown" class="hover:text-laravel" style="float:right;">
+                    <a href="/Posts"><p class="text-dark"><i class="fa-solid fa-comment"></i>
+                        Feedback</p>
+                    </a
+                >
+                </div>
+                
 
                 <div class="dropdown" class="hover:text-laravel" style="float:right;">
                     <a href="/welcome"><p class="text-dark"><i class="fas fa-bell"></i>
@@ -223,6 +230,12 @@
                 <li>
                     <a href="/register" class="hover:text-laravel"
                         ><i class="fa-solid fa-user-plus"></i> Register</a
+                    >
+                </li>
+                <li>
+                    <a href="/Posts" class="hover:text-laravel"
+                        ><i class="fa-solid fa-comment"></i>
+                        Feedback</a
                     >
                 </li>
                 <li>

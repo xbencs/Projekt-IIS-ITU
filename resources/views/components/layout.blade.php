@@ -51,13 +51,6 @@
                 results : []
             }
             
-            /* function onclick(data) {
-                $('#matchCallback').text("onclick(data: '" + data + "')")
-            }
-            
-            function onhover(data, hover) {
-                $('#matchCallback').text("onhover(data: '" + data + "', hover: " + hover + ")")
-            } */
             function acEditFn(container, data, doneCb) {
                 var input = $('<input type="text">')
                 input.val(data)
@@ -90,17 +83,6 @@
             }
             
 
-            
-            
-            // $(function() {
-            //     $('#matches .demo').bracket({
-            //         init: autoCompleteData,
-            //         save: function(){}, /* without save() labels are disabled */
-            //         decorator: {edit: acEditFn,
-            //                     render: acRenderFn}})
-            // })
-            
-            
             
         </script>
         <style>

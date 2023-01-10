@@ -444,11 +444,9 @@
         }
         
         // var json = jQuery.toJSON(matches);
-        @if($listing->collective)
-        var teams ={{ Js::from($teams)}}
-        @else
-        var teams ={{ Js::from($users)}}
-        @endif
+        $.getJSON('http://127.0.0.1:8000/api/listings/team/{{$listing->id}}', function(data){
+        teams = data;
+        console.log(teams);
         matches.forEach(element => {
             for (let index = 0; index < teams.length; index++) {
                 if (teams[index].name === element.first_team_id) {
@@ -467,6 +465,13 @@
                                             type: 'post',
                                             data: json})
         });
+        
+    });
+       /*  @if($listing->collective)
+        var teams ={{ Js::from($teams)}}
+        @else
+        var teams ={{ Js::from($users)}}
+        @endif */
         
     }
     

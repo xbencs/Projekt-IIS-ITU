@@ -8,6 +8,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\ListingController;
 use App\Http\Controllers\TeamController;
 use App\Http\Livewire\Announcements;
+use App\Http\Controllers\PostController;
 
 /*
 |--------------------------------------------------------------------------
@@ -117,6 +118,9 @@ Route::get('/schedule', [UserController::class, 'schedule'])->middleware('auth')
 
 // show announcements
 Route::get('/welcome', [Announcements::class, 'index'])->middleware('auth');
+
+Route::get('/Posts', [PostController::class, 'index']);
+Route::post('/Posts', [PostController::class, 'store'])->name('posts.store');
 
 
 
